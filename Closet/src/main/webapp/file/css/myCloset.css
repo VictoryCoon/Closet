@@ -1,0 +1,85 @@
+@CHARSET "UTF-8";
+
+/* 타이틀 베너 */
+.title{width:100%;height:90px;border:0px solid;box-sizing:border-box;margin-top:120px;}
+.title>h1{text-align:center;}
+.title>button{float:right}
+
+/* 옷장 */
+.closet{
+	width:600px;height:auto;float:left;
+	border:0px solid #000;box-sizing:border-box;
+}
+
+.closet>.closetView{
+	width:580px;height:360px;border:0px solid #000;box-sizing:border-box;
+	margin:10px;box-shadow:3px 3px 9px #DDDDDD;
+}
+.closet>.closetOption{
+	width:580px;height:175px;border:0px solid #000;box-sizing:border-box;
+	margin:10px;padding:10px;box-shadow:3px 3px 9px #DDDDDD;
+}
+.closet>.closetOption>ul>li{margin-top:12px;}
+
+/* 옷장 아이템 */
+.items{
+	width:290px;height:auto;float:left;margin-right:10px;
+	border:0px solid #000;box-sizing:border-box;
+}
+
+.items>.itemList{
+	width:280px;height:545px;border:0px solid #000;box-sizing:border-box;
+	box-shadow:3px 3px 9px #DDDDDD;margin-top:10px;margin-left:10px;overflow:scroll;
+}
+.items>.itemList>ul{
+	width:280px;height:auto;
+	border:0px solid;box-sizing:border-box;
+}
+.items>.itemList>ul>li{
+	width:130px;height:130px;float:left;
+	margin-left:7px;margin-top:5px;
+	border:0px solid;box-sizing:border-box;
+	box-shadow:3px 3px 9px #DDDDDD;
+}
+
+/* 옷장 마네킹 */
+.mannequin{
+	width:290px;height:auto;float:left;
+	border:0px solid #000;box-sizing:border-box;
+}
+.mannequin>.mannequinView{
+	width:280px;height:545px;border:0px solid #000;box-sizing:border-box;
+	box-shadow:3px 3px 9px #DDDDDD;margin-top:10px;margin-left:10px;
+}
+
+/* 옷장에 등록된 옷(Box) */
+.box{
+	width:100%;height:auto;float:left;
+	border:0px solid #000;box-sizing:border-box;
+}
+
+.box>.closetBox{
+	width:1180px;margin:10px;box-shadow:3px 3px 9px #DDDDDD;
+	border:0px solid #000;box-sizing:border-box;padding-top:0.1px;padding-bottom:0.1px;
+}
+
+.box>.closetBox>.boxList{
+	width:1160px;height:auto;margin:10px;
+	border:0px solid #000;box-sizing:border-box;
+	box-shadow:3px 3px 9px #DDDDDD;
+}
+.box>.closetBox>.boxList>span{
+	width:180px;height:18px;display:block;
+	border:0px solid #000;box-sizing:border-box;
+}
+.box>.closetBox>.boxList>ul{
+	width:100%;height:auto;margin-top:15px;	/* JavaScript로 폭에대한 li갯수 수식 걸어야할듯. 옷장에 따라서 최대치가 계산되도록 */
+	border:0px solid #000;box-sizing:border-box;
+}
+.box>.closetBox>.boxList>ul>li{
+	width:120px;height:120px;margin:4.4px;float:left;
+	border:0px solid #000;box-sizing:border-box;box-shadow:3px 3px 9px #DDDDDD;
+}
+
+.box>.fileSet{margin:10px;border:0px solid;box-sizing:border-box;margin-top:36px;}
+.box>.fileSet>button{width:120px;margin-right:15px;}

@@ -1,0 +1,74 @@
+@CHARSET "UTF-8";
+
+/* 옷장 최신 */
+.closetBoard{
+	width:600px;height:auto;
+	border:0px solid #000;box-sizing:border-box;
+	float:left;margin-right:10px;
+}
+
+.closetBoard>.closetView{
+	width:570px;height:360px;border:0px solid #000;box-sizing:border-box;
+	margin:14px;box-shadow:3px 3px 9px #DDDDDD;
+}
+
+.closetBoard>.liking{
+	width:570px;height:27px;border:0px solid #000;box-sizing:border-box;
+	margin-left:14px;margin-bottom:14px;
+}
+.closetBoard>.liking>span{float:left;display:block;height:24px;border:0px solid;box-sizing:border-box;margin-right:18px;font-size:18pt;}
+.closetBoard>.liking>.clover{width:24px;background:url("/file/img/clover.png") no-repeat 50%;background-size:100%;}
+.closetBoard>.liking>.clover:hover{cursor:pointer;background:url("/file/img/clover_active.png") no-repeat 50%;background-size:100%;}
+.closetBoard>.liking>.cloverPoint{width:auto;}
+.closetBoard>.liking>.flover{width:24px;background:url("/file/img/flover.png") no-repeat 50%;background-size:100%;}
+.closetBoard>.liking>.flover:hover{cursor:pointer;background:url("/file/img/flover_active.png") no-repeat 50%;background-size:100%;}
+.closetBoard>.liking>.floverPoint{width:auto;}
+
+.closetBoard>.closetInfo{
+	width:570px;height:auto;border:0px solid #000;box-sizing:border-box;
+	margin-left:14px;
+}
+.closetBoard>.closetInfo>ul.userInfo{
+	width:570px;height:57px;box-shadow:3px 3px 9px #DDDDDD;
+	border:0px solid #000;box-sizing:border-box;
+}
+.closetBoard>.closetInfo>ul.userInfo>li:nth-child(1){	/* 작성자 사진 */
+	width:45px;height:45px;float:left;margin:6px;
+	border:0px solid #777777;box-sizing:border-box;box-shadow:3px 3px 9px #DDDDDD;
+}
+.closetBoard>.closetInfo>ul.userInfo>li:nth-child(2){	/* 등록일자 */
+	width:auto;float:right;margin:3px;
+	border:0px solid #777777;box-sizing:border-box;
+}
+.closetBoard>.closetInfo>ul.userInfo>li:nth-child(3){	/* 작성자 이름(닉네임) */
+	width:270px;height:24px;float:left;margin-top:6px;
+	border:0px solid #777777;box-sizing:border-box;text-align:left;
+}
+.closetBoard>.closetInfo>ul.userInfo>li:nth-child(4){	/* 글 제목 */
+	width:500px;height:18px;float:left;float:left;margin-top:3px;
+	border:0px solid #777777;box-sizing:border-box;text-align:left;
+}
+
+/* 이벤트 */
+.event{
+	width:290px;height:auto;float:left;margin-right:10px;margin-top:10px;
+	border:0px solid #000;box-sizing:border-box;
+}
+.event>.eventView{
+	width:280px;height:180px;box-shadow:3px 3px 9px #DDDDDD;
+	border:0px solid;box-sizing:border-box;margin:4px;
+}
+.event>.eventView>.eventImg{height:150px;border:0px solid;box-sizing:border-box;}
+.event>.eventView>.eventTitle{height:30px;border:0px solid;box-sizing:border-box;}
+
+/* 프로모션 */
+.promition{
+	width:290px;height:auto;float:left;margin-top:10px;
+	border:0px solid #000;box-sizing:border-box;
+}
+.promition>.promitionView{
+	width:280px;height:540px;box-shadow:3px 3px 9px #DDDDDD;
+	border:0px solid;box-sizing:border-box;margin:4px;
+}
+.promition>.promitionView>.promitionImg{height:510px;border:0px solid;box-sizing:border-box;}
+.promition>.promitionView>.promitionTitle{height:30px;border:0px solid;box-sizing:border-box;}

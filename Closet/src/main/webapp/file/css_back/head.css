@@ -1,0 +1,14 @@
+@CHARSET "EUC-KR";
+
+/* 베너 : 메인링크, 로고, 로그인여부 */
+.banner{width:100%;height:120px;border:0px solid blue;box-sizing:border-box;margin:0 auto;padding-top:12px;}
+.banner>.limitWidth{width:1200px;height:100%;border:0px solid #FFEE00;box-sizing:border-box;margin:0 auto;}
+.banner>.limitWidth>ul>li{margin:0 auto;height:100%;float:left;}
+.banner>.limitWidth>ul>li.home{width:30%;}
+.banner>.limitWidth>ul>li.logo{width:40%;background:url("/file/img/head.png") no-repeat 50%;background-size:20%;}
+.banner>.limitWidth>ul>li.userStatus{width:30%;}
+/* 메뉴 : 상단메뉴 */
+.menu{width:100%;height:30px;border:0px solid red;box-sizing:border-box;margin:0 auto;font-weight:bold;font-size:1.8em;}
+.menu>.limitWidth{width:1200px;height:100%;border:0px solid #FFEE00;box-sizing:border-box;margin:0 auto;text-align:center;}
+.menu>.limitWidth>ul{width:100%;}
+.menu>.limitWidth>ul>li{width:25%;float:left;}

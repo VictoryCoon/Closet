@@ -1,0 +1,77 @@
+@CHARSET "UTF-8";
+
+/* 베너 : 메인링크(Logo), 메뉴, 로그인여부 */
+.banner{
+	position:fixed;left:0;top:0;width:100%;height:36px;border:0px solid blue;box-sizing:border-box;margin:0 auto;background-color:#EEDD00;z-index:2147483646;}
+.banner>.limitWidth{width:auto;height:100%;border:0px solid #FFEE00;box-sizing:border-bbox;margin:0 auto;}
+.banner>.limitWidth>ul>li{
+	width:30px;height:30px;cursor:pointer;margin-top:3px;margin-left:3px;
+	box-sizing:border-box;border:0px solid;float:left;
+}
+
+/* 상단 좌측메뉴 설정 */
+.banner>.limitWidth>ul>li{transition:0.5s;border-radius:3px;}
+.banner>.limitWidth>ul>li.logo{background:url("/file/img/symbolw.png") no-repeat 50%;background-size:100%;}
+.banner>.limitWidth>ul>li.logo:hover{box-shadow:0px 0px 6px #aaa;}
+.banner>.limitWidth>ul>li.about{background:url("/file/img/aboutw.png") no-repeat 50%;background-size:100%;}
+.banner>.limitWidth>ul>li.about:hover{box-shadow:0px 0px 6px #aaa;}
+.banner>.limitWidth>ul>li.board{background:url("/file/img/boardw.png") no-repeat 50%;background-size:100%;}
+.banner>.limitWidth>ul>li.board:hover{box-shadow:0px 0px 6px #aaa;}
+.banner>.limitWidth>ul>li.cService{background:url("/file/img/servicew.png") no-repeat 50%;background-size:100%;}
+.banner>.limitWidth>ul>li.cService:hover{box-shadow:0px 0px 6px #aaa;}
+
+/* 게시판 검색엔진 */
+.banner>.limitWidth>ul>li.searchForm{position:fixed;left:40%;top:2px;width:20%;height:30px;}
+.banner>.limitWidth>ul>li.searchForm>form>input{float:left;font-size:1.1em;}
+.banner>.limitWidth>ul>li.searchForm>form>select{float:left;font-size:1.1em;}
+.banner>.limitWidth>ul>li.searchForm>form>input:nth-child(1){width:58%;height:24px;border-radius:6px;margin-right:1%;text-indent:5px;}
+.banner>.limitWidth>ul>li.searchForm>form>select{width:20%;height:24px;border-radius:6px;margin-right:1%;}
+.banner>.limitWidth>ul>li.searchForm>form>input:nth-child(3){width:20%;height:24px;border-radius:6px;}
+
+/* 상단 우측메뉴 설정 */
+.banner>.limitWidth>ul>li.userStatus{
+	width:auto;height:30px;float:right;
+	box-sizing:border-box;border:0px solid;
+}
+.banner>.limitWidth>ul>li.userStatus>div{float:right;}
+
+.banner>.limitWidth>ul>li.userStatus>div>span{
+	display:block;width:30px;height:30px;float:right;transition:0.5s;
+	border:0px solid;box-sizing:border-box;margin-right:3px;border-radius:3px;
+}
+.banner>.limitWidth>ul>li.userStatus>div>span:hover{box-shadow:0px 0px 6px #aaa;}
+
+/* 로그 아웃 상태 */
+.banner>.limitWidth>ul>li.userStatus>.statusLogout>span.sign_up{
+	background:url(/file/img/signupw.png) no-repeat 50%;background-size:100%;
+}
+.banner>.limitWidth>ul>li.userStatus>.statusLogout>span.sign_in{
+	background:url(/file/img/loginw.png) no-repeat 50%;background-size:100%;
+}
+.banner>.limitWidth>ul>li.userStatus>.statusLogout>span.log_in{
+	background:url(/file/img/keyw.png) no-repeat 50%;background-size:100%;
+}
+.banner>.limitWidth>ul>li.userStatus>.statusLogout>span.contract{
+	background:url(/file/img/contractw.png) no-repeat 50%;background-size:100%;
+}
+
+/* 로그 인 상태 */
+.banner>.limitWidth>ul>li.userStatus>.statusLogin>span.sign_out{
+	background:url(/file/img/logoutw.png) no-repeat 50%;background-size:100%;
+}
+.banner>.limitWidth>ul>li.userStatus>.statusLogin>span.myInfo{
+	background:url(/file/img/aboutw.png) no-repeat 50%;background-size:100%;
+}
+.banner>.limitWidth>ul>li.userStatus>.statusLogin>span.closet{
+	background:url(/file/img/closetw.png) no-repeat 50%;background-size:100%;
+}
+.banner>.limitWidth>ul>li.userStatus>.statusLogin>span.conService{
+	background:url(/file/img/closetw.png) no-repeat 50%;background-size:100%;
+}
+
+/* 테스트 전용 레이어. 여러개만들지말고 여기서 한번에 하자고. */
+.testBox{
+	position:fixed;left:30%;top:25%;width:40%;height:60%;text-align:center;
+	box-sizing:border-box;border-radius:9px;background-color:rgba(255,238,0,0.7);
+	padding:30px;z-index:9999999;box-shadow:3px 3px 6px #333333;
+}

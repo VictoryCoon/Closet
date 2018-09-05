@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.closet.admin.AdminDao">
+	<!-- 로그인 체크 -->
+    <select id="adminIn" resultType="String">
+    	SELECT USER_ID AS userId
+    	     , USER_PW AS userPw
+    	  FROM USERS
+		 WHERE USER_ID = #{userId}
+		   AND USER_PW = ENCRYPT_PKG.ENC_PWD(#{userPw})
+    </select>
+    <!-- 로그인 성공 후 세션정보 호출 -->
+    <select id="adminInfo" resultType="com.project.closet.admin.AdminDto">
+    	SELECT USER_ID AS userId
+    	     , USER_PW AS userPw
+    	  FROM USERS
+		 WHERE USER_ID = #{userId}
+		   AND USER_PW = ENCRYPT_PKG.ENC_PWD(#{userPw})
+    </select>
+</mapper>

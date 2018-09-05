@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.closet.service.UserDao">
+	<!-- 로그인 체크 -->
+    <select id="signIn" resultType="String">
+    	SELECT USER_ID AS userId
+    	     , USER_PW AS userPw
+    	     , BANK_CD AS bankCd
+    	     , CLOSET_CD AS closetCd
+    	  FROM USERS
+		 WHERE USER_ID = #{userId}
+		   AND USER_PW = ENCRYPT_PKG.ENC_PWD(#{userPw})
+		   AND STATUS = '1'<!-- TEST = 0 -->
+    </select>
+    <!-- 로그인 성공 후 세션정보 호출 -->
+    <select id="viewUser" resultType="com.project.closet.dto.UserDto">
+    	SELECT A.USER_ID AS userId
+    	     , A.USER_NAME AS userName
+    	     , A.SEX AS sex
+    	     , A.REG_DATE AS regDate
+    	     , A.BIRTHDAY AS birthday
+    	     , ENCRYPT_PKG.KAIDOKU_PASSWD(A.USER_PW) AS userPw
+    	     , A.MOBILE AS mobile
+    	     , A.ADDRESS AS address
+    	     , A.POINT AS point
+    	     , A.CASH AS cash
+    	     , A.CASH_ACC_AMT AS cashAccAmt
+    	     , A.CASH_LAST_DATE AS cashLastDate
+    	     , A.USER_PW AS userPw
+    	     , A.BANK_CD AS bankCd
+    	     , (SELECT BANK_NAME FROM BANK WHERE BANK_CD = A.BANK_CD) AS bankName
+    	     , A.CLOSET_CD AS closetCd
+    	     , (SELECT CLOSET_NAME FROM CLOSET WHERE CLOSET_CD = A.CLOSET_CD) AS closetName
+             , A.PROFILE_PATH AS profilePath
+             , A.PROFILE_IMG AS profileImg
+             , A.PROFILE_IMG_EXT AS profileImgExt
+             , NVL(A.PHYSICAL_LENGTH,0) AS length
+             , NVL(A.PHYSICAL_WEIGHT,0) AS weight
+             , NVL(A.PHYSICAL_HEAD,0) AS head
+             , NVL(A.PHYSICAL_NECK,0) AS neck
+             , NVL(A.PHYSICAL_SHOULDER,0) AS shoulder
+             , NVL(A.PHYSICAL_WAIST,0) AS waist
+             , NVL(A.PHYSICAL_THIGH,0) AS thigh
+             , NVL(A.PHYSICAL_FOOT,0) AS foot
+             , NVL(A.PHYSICAL_FINGER,0) AS finger
+             , NVL(A.PHYSICAL_BUST,0) AS bust
+             , NVL(A.PHYSICAL_HIP,0) AS hip
+    	  FROM USERS A
+		 WHERE A.USER_ID = #{userId}
+		   AND A.STATUS = '1'<!-- TEST = 0 -->
+		   AND A.USER_PW = ENCRYPT_PKG.ENC_PWD(#{userPw})
+    </select>
+    <!-- 프로시져 : 회원등록 실행 -->
+    <select id="userInsProc" statementType="CALLABLE" parameterType="HashMap">
+    	{
+    		CALL USERS_PKG.Users_Ins_Proc(
+                #{SP_User_Name},
+                #{SP_Reg_Date},
+                #{SP_Birthday},
+                #{SP_Birth_Kind},
+                #{SP_Social_No},
+                #{SP_User_Id},
+                #{SP_User_Pw},
+                #{SP_User_Kind},
+                #{SP_Mobile},
+                #{SP_StatusValue, mode=OUT, jdbcType=VARCHAR},
+                #{SP_ReturnCode, mode=OUT, jdbcType=VARCHAR},
+                #{SP_ReturnMsg, mode=OUT, jdbcType=VARCHAR}
+    		)
+    	}
+    </select>
+    <update id="updateMobile">
+    	UPDATE USERS
+    	   SET MOBILE = #{mobile}
+    	 WHERE USER_ID = #{userId}
+    	   AND STATUS = '1'
+    </update>
+    <update id="updatePassword">
+    	UPDATE USERS
+    	   SET USER_PW = ENCRYPT_PKG.ENC_PWD(#{userPw})
+    	 WHERE USER_ID = #{userId}
+    	   AND STATUS = '1'
+    </update>
+    <update id="updateSex">
+    	UPDATE USERS
+    	   SET SEX = #{sex}
+    	 WHERE USER_ID = #{userId}
+    	   AND STATUS = '1'
+    </update>
+    <update id="userDrop">
+    	UPDATE USERS
+    	   SET STATUS = '0'	<!-- 활성 : 1, 비활성 : 0 -->
+    	     , REMARK = #{remark}
+    	 WHERE USER_ID = #{userId}
+    	   AND STATUS = '1'
+    </update>
+    <select id="testAjax" parameterType="com.project.closet.dto.UserDto" resultType="com.project.closet.dto.UserDto">
+		SELECT KIND_CD AS userKind
+		     , REG_DATE AS userName
+		     , KIND_NAME_KOR AS userId
+		     , KIND_NAME_ENG AS userPw
+		     , USE_YN AS sex
+		     , WORK_DATE AS regDate
+		     , WORK_USER AS mobile
+		  FROM KINDS
+		 WHERE USE_YN = #{sex}
+    </select>
+    <select id="userIdChk" parameterType="com.project.closet.dto.UserDto" resultType="com.project.closet.dto.UserDto">
+		SELECT COUNT(*) AS cnt
+		  FROM USERS
+		 WHERE USER_ID = #{userId}
+    </select>
+</mapper>

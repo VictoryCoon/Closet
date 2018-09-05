@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+
+/* 사업소개 심볼 */
+.aboutSymbol{
+	width:40%;height:360px;border:0px solid #000;
+	box-sizing:border-box;float:left;
+	background:url(/file/img/symbolb.png) no-repeat 50%;
+	background-size:50%;
+}
+
+/* 사업소개 이념 */
+.aboutEthic{width:60%;height:360px;border:0px solid #000;box-sizing:border-box;float:left;padding:48px;}
+
+/* 사업소개 내용 */
+.aboutContent{width:100%;height:auto;border:0px solid #000;box-sizing:border-box;float:left;padding:60px;}

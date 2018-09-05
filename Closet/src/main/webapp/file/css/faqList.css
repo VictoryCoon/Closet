@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+/* 게시판 타이틀 */
+.listFrame>ul.bBanner{
+	height:18px;margin-bottom:18px;border:0px solid #000;padding:12px 0px;
+}
+.listFrame>ul.bBanner>li{
+	float:left;text-align:center;width:50%;
+	border:0px solid #000;box-sizing:border-box;
+}
+
+/* 게시판 리스트 */
+.listFrame>ul.bContent{margin-top:18px;border:0px solid #000;box-sizing:border-box;}
+.listFrame>ul.bContent>li{
+	width:33%;height:24px;float:left;text-align:center;
+	border:0px solid #000;box-sizing:border-box;
+}
