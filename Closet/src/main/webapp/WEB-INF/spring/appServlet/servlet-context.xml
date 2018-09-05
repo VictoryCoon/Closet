@@ -3,26 +3,75 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+	<!-- 파일저장경로 셋팅, 추가 폴더 가능, 최소경로는 webapp 부터 시작 -->
+	<resources mapping="/file/**" location="/file/" />
+	<resources mapping="/favicon.ico" location="/favicon.ico" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- VIEW 기본경로 지전 및 Suffix로 확장자 셋팅, preifx + return경로 + suffix의 구성으로 페이지 이동 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/jsp/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.project.closet" />
+	<!-- 최상위 자바소스 패키지 -->
+	<context:component-scan base-package="com.project.closet"/>
 	
+	<context:component-scan base-package="com.project.closet.admin"/>
+	<context:component-scan base-package="com.project.closet.controller"/>
+	<context:component-scan base-package="com.project.closet.service"/>
+	<context:component-scan base-package="com.project.closet.serviceImpl"/>
+	<context:component-scan base-package="com.project.closet.dao"/>
+	<context:component-scan base-package="com.project.closet.daoImpl"/>
+	<context:component-scan base-package="com.project.closet.mapper"/>
+	<context:component-scan base-package="com.project.closet.util"/>
 	
+	<!-- JDBC라이브러리를 이용한 DB정보 템플릿 셋팅 -->
+	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<beans:property name="url" value="jdbc:oracle:thin:@211.115.92.216:3200/wow0131"/>
+		<beans:property name="username" value="fordays_20180321"/>
+		<beans:property name="password" value="fd20170223"/>
+	</beans:bean>
 	
+	<!-- MyBatis Log포멧 셋팅, 하지만 지금은 잘 안되네, 버전문제라 함(Java 9 이상) -->
+	<beans:bean id="logDataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<beans:constructor-arg ref="dataSource" />
+		<beans:property name="logFormatter">
+			<beans:bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<beans:property name="loggingType" value="MULTI_LINE" />
+				<beans:property name="sqlPrefix" value="::: S Q L :::\n"/>
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+
+	<!-- 데이터 소스 기반 마이바티스 팩토리 빈 환경 셋팅 -->
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="mapperLocations" value="classpath:com/project/closet/mapper/*.xml"/><!-- 이쪽 경로에 포함된 XML 파일만 읽어들인다. -->
+	</beans:bean>
+	
+	<!-- SqlSession 셋팅 -->
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory"/>
+	</beans:bean>
+	
+    <!-- MultipartResolver : 파일 업&다운로드 -->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <beans:property name="maxUploadSize" value="100000000"/><!-- 1회 최대 업로드 사이즈 -->
+        <beans:property name="maxInMemorySize" value="100000000"/><!-- 해당경로 최대 업로드 사이즈 -->
+    </beans:bean>
+
+	<!-- @ResponseBody Driven -->
+	<annotation-driven/>
 </beans:beans>
