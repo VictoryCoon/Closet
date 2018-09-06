@@ -203,7 +203,7 @@ public class UserController {
 		return "user/myInfo";
 	}
 	
-	@RequestMapping(value = "userIdChk.do", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "userIdChk.json", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public @ResponseBody List<Object> userIdChk(@ModelAttribute UserDto dto, HttpSession session) throws Exception{
 		
 		List<Object> ajaxList = userService.userIdChk(dto);

@@ -124,7 +124,7 @@ function userIdChk() {
 	}
 	
 	$.ajax({
-		url:'/user/userIdChk.do',
+		url:'/user/userIdChk.json',
 		type:'POST',
 		data:postData,
 		contentType:"application/x-www-form-urlencoded;charsset=UTF-8",

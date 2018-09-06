@@ -35,6 +35,10 @@
 <link rel="stylesheet" type="text/css" href="/file/css/button.css" media="all"/>
 <link rel="stylesheet" type="text/css" href="/file/css/layer.css" media="all"/>
 
+<!-- Admin -->
+<link rel="stylesheet" type="text/css" href="/file/css/adminEnter.css" media="all"/>
+<link rel="stylesheet" type="text/css" href="/file/css/admin.css" media="all"/>
+
 <!-- Main -->
 <link rel="stylesheet" type="text/css" href="/file/css/main.css" media="all"/>
 

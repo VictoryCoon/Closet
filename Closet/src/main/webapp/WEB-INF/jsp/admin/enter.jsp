@@ -7,26 +7,75 @@
 <%@ include file="/WEB-INF/jsp/common/javaScripts.jsp"%>
 <%@ include file="/WEB-INF/jsp/common/css.jsp"%>
 <script>
-	$(document).ready(function() {
-		/* 접속 : 회원 */
-		$("#enterAdmin").click(function() {
-			if($("#adminId").val() == "" || $("#adminId").val() == null){
-				alert("ID를 입력하세요.");
-				$("#adminId").focus();
+var message = "${msg}";
+$(document).ready(function() {
+	
+	if(message != "") {
+		alert(message);
+	}else {
+		message = "";
+	}
+	
+	$("#adminId, #adminPw").keyup(function(event){
+	    if(event.keyCode == 13){
+	        $("#enterAdmin").click();
+	    }
+	});
+	
+	$("#enterAdmin").click(function() {
+		var adminId = $("#adminId").val();
+		var adminPw = $("#adminPw").val();
+		
+		if(adminId == "" || adminId == null){
+			alert("ID를 입력하세요.");
+			$("#adminId").focus();
+			return;
+		}
+		
+		if(adminPw == "" || adminPw == null){
+			alert("비밀번호를 입력하세요.");
+			$("#adminPw").focus();
+			return;
+		}
+		
+		var postData = {
+			'adminId' : adminId,
+			'adminPw' : adminPw,
+		};
+		/* 접속 : 관리자 */	
+		$.ajax({
+			url:'/admin/adminLogin.do',
+			type:'POST',
+			data:postData,
+			contentType:"application/x-www-form-urlencoded;charsset=UTF-8",
+			dataType:'json',
+			success:function(rsp) {
+				$.each(rsp, function(k,v) {	// key, value : 현재호출방식에서는 key 값이 전부 null(undefined)이다. value.attribute만 호출하면 된다.
+					console.log(v.cnt);
+					if(v.cnt != "0") {
+						$("#access").val("Y");
+						document.adminAccess.action ="adminAccess.do";	// 그냥 접근하면 에러나게함.
+						document.adminAccess.submit();
+					} else {
+						$("#access").val("N");
+						alert("아이디와 비밀번호를 확인해 주세요.");
+					}
+				});
+				
+			},
+			error:function(XMLHttpRequest, textStatus, errorThrown) {
+				alert("Ajax Error : Check parameters or statements Of Ajax Elements in the Inspector log.");
+				//console.log("ParamData" + postData);
 				return;
 			}
-			
-			if($("#adminPw").val() == "" || $("#adminPw").val() == null){
-				alert("비밀번호를 입력하세요.");
-				$("#adminPw").focus();
-				return;
-			}
-			document.adminLogin.action = "/admin/logIn.do"
-			document.adminLogin.submit();
 		});
 	});
+});
 </script>
 <body>
+<form name="adminAccess" method="POST">
+	<input type="hidden" id="access" name="access"/>
+</form>
 <div class="adminEnter">
 	<div class="enter">
 		<h1>Administrator Log - In</h1>

@@ -1,11 +1,13 @@
 package com.project.closet.admin;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 public interface AdminService {
 
-	boolean adminIn(AdminDto dto, HttpSession session);
 	AdminDto AdminInfo(AdminDto dto);
 	void logOut(HttpSession session);
-
+	List<Object> adminLogin(AdminDto dto);
+	List<Object> companyInfo(AdminDto dto);
 }

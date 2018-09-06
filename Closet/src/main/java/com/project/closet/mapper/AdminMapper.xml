@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.closet.admin.AdminDao">
-	<!-- 로그인 체크 -->
-    <select id="adminIn" resultType="String">
-    	SELECT USER_ID AS userId
-    	     , USER_PW AS userPw
+	<select id="companyInfo" parameterType="com.project.closet.admin.AdminDto" resultType="com.project.closet.admin.AdminDto">
+	<!-- 데이터가 없으니 아무거나 테스트중. . . -->
+    	SELECT USER_ID AS adminId
+    	     , USER_KIND AS adminPw
     	  FROM USERS
-		 WHERE USER_ID = #{userId}
-		   AND USER_PW = ENCRYPT_PKG.ENC_PWD(#{userPw})
+    	 WHERE USER_ID = 'Nurd'
+	</select>
+	<!-- 로그인 체크 -->
+    <select id="adminLogin" parameterType="com.project.closet.admin.AdminDto" resultType="com.project.closet.admin.AdminDto">
+    	SELECT COUNT(*) AS cnt
+    	  FROM USERS
+		 WHERE USER_ID = #{adminId}
+		   AND USER_PW = ENCRYPT_PKG.ENC_PWD(#{adminPw})
     </select>
     <!-- 로그인 성공 후 세션정보 호출 -->
     <select id="adminInfo" resultType="com.project.closet.admin.AdminDto">
