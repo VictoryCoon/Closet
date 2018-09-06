@@ -21,7 +21,7 @@
 .banner>.limitWidth>ul>li.cService:hover{box-shadow:0px 0px 6px #aaa;}
 
 /* 게시판 검색엔진 */
-.banner>.limitWidth>ul>li.searchForm{position:fixed;left:40%;top:2px;width:20%;height:30px;}
+.banner>.limitWidth>ul>li.searchForm{position:fixed;left:30%;top:2px;width:40%;height:30px;}
 .banner>.limitWidth>ul>li.searchForm>form>input{float:left;font-size:1.1em;}
 .banner>.limitWidth>ul>li.searchForm>form>select{float:left;font-size:1.1em;}
 .banner>.limitWidth>ul>li.searchForm>form>input:nth-child(1){width:58%;height:24px;border-radius:6px;margin-right:1%;text-indent:5px;}
