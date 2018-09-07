@@ -38,9 +38,6 @@ public class UserDaoImpl implements UserDao {
 		
 		sqlSessionTemplate.selectOne("userInsProc", map);
 		
-		System.out.println("Maps Aft : " + map.get("SP_ReturnCode"));
-		System.out.println("Maps Aft : " + map.get("SP_ReturnMsg"));
-		
 		return map; 
 	}
 	
@@ -60,58 +57,42 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean updatePassword(UserDto dto) {
-		
 		int update = 0;
-		
 		update = sqlSession.update("updatePassword", dto);
-		System.out.println("UserDAO Dto updatePassword : "+dto.getUserPw());
-		
 		return (update != 0) ? true : false;
 	}
 
 	@Override
 	public boolean updateMobile(UserDto dto) {
-		
 		int update = 0;
-		
 		update = sqlSession.update("updateMobile", dto);
-		System.out.println("UserDAO Dto updateYn : "+update);
 		return (update != 0) ? true : false;
 	}
 
 	@Override
 	public boolean updateSex(UserDto dto) {
-		
 		int update = 0;
-		
 		update = sqlSession.update("updateSex", dto);
-		System.out.println("UserDAO Dto updateYn : "+update);
 		return (update != 0) ? true : false;
 	}
 	
 	@Override
 	public boolean userDrop(UserDto dto) {
 		int update = 0;
-		
 		update = sqlSession.update("userDrop", dto);
-		System.out.println("UserDAO Dto userDrop : "+update);
 		return (update != 0) ? true : false;
 	}
 
 
 	@Override
 	public List<UserDto> userIdChk(UserDto dto) {
-		
 		List<UserDto> execList = sqlSession.selectList("userIdChk",dto);
-		
 		return execList;
 	}
 	
 	@Override
 	public List<UserDto> testList(UserDto dto) {
-		
 		List<UserDto> execList = sqlSession.selectList("testAjax",dto);
-		
 		return execList;
 	}
 }

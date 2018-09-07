@@ -10,7 +10,7 @@ $(document).ready(function(){
 	$.ajax({
 		url:'/admin/companyInfo.json',
 		type:'POST',
-		data:'',
+		data:'',	// 있든 없든 상관없음.
 		contentType:"application/x-www-form-urlencoded;charsset=UTF-8",
 		dataType:'json',
 		success:function(rsp) {

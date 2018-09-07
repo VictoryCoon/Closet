@@ -189,7 +189,7 @@ function profileUpload(value) {
 			<li>이름</li>
 			<li>성별</li>
 			<li>가입일자</li>
-			<li>Tel</li>
+			<li>휴대폰</li>
 			<!-- <li>주소(가 필요한가?)</li> -->
 			<li>옷장</li>
 			<li>포인트 잔액</li>

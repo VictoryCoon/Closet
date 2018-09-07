@@ -68,16 +68,16 @@ $(document).ready(function() {
 </div> -->
 <div class="gridster">
 	<ul>
-		<li data-row="1" data-col="1" data-sizex="4" data-sizey="2">
+		<li data-row="1" data-col="1" data-sizex="4" data-sizey="2" id="storage">
 			<span class="gs-resize-handle gs-resize-handle-both"></span>
 		</li>
-		<li data-row="1" data-col="1" data-sizex="2" data-sizey="4">
+		<li data-row="1" data-col="1" data-sizex="2" data-sizey="4" id="items">
 			<span class="gs-resize-handle gs-resize-handle-both"></span>
 		</li>
-		<li data-row="1" data-col="1" data-sizex="2" data-sizey="4">
+		<li data-row="1" data-col="1" data-sizex="2" data-sizey="4" id="desc">
 			<span class="gs-resize-handle gs-resize-handle-both"></span>
 		</li>
-		<li data-row="1" data-col="1" data-sizex="4" data-sizey="2">
+		<li data-row="1" data-col="1" data-sizex="4" data-sizey="2" id="cInfo">
 			<span class="gs-resize-handle gs-resize-handle-both"></span>
 		</li>
 	</ul>
