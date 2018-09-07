@@ -1,5 +1,6 @@
 @CHARSET "UTF-8";
 
+/* Admin Left Menu */
 .adminMain{width:1200px;border:0px solid;box-sizing:border-box;text-align:center;}
 .adminMain>h1{margin-bottom:60px;}
 .adminMain>h1:hover{cursor:pointer;color:#0099EE;text-shadow:2px 2px 4px #CCCCCC;}
@@ -9,8 +10,22 @@
 }
 .adminMain>.adminList>ul>li{width:120px;height:60px;}
 .adminMain>.adminList>ul>li:hover{cursor:pointer;color:#0099EE;text-shadow:2px 2px 4px #CCCCCC;}
-
 .adminMain>.adminStatus{width:1050px;border:0px solid;box-sizing:border-box;float:left;text-align:center;}
-.adminMain>.adminStatus>.main{height:300px;padding:24px;box-shadow:3px 3px 9px #CCCCCC;border-radius:6px;}
+
+/* Main */
+.adminMain>.adminStatus>.main{height:450px;padding:24px;box-shadow:3px 3px 9px #CCCCCC;border-radius:6px;}
 .adminMain>.adminStatus>.main>ul{width:50%;float:left;text-align:left;font-size:1.8em;}
 .adminMain>.adminStatus>.main>ul>li{height:60px;line-height:60px;}
+
+/* General */
+.adminMain>.adminStatus>.general{height:450px;padding:30px;box-shadow:3px 3px 9px #CCCCCC;border-radius:6px;}
+.adminMain>.adminStatus>.general>ul{width:33%;float:left;text-align:left;font-size:1.2em;}
+.adminMain>.adminStatus>.general>ul>li{height:60px;line-height:60px;}
+.adminMain>.adminStatus>.general>ul>li>select{width:180px;}
+
+/* Contract */
+.adminMain>.adminStatus>.contract{height:450px;padding:30px;box-shadow:3px 3px 9px #CCCCCC;border-radius:6px;}
+.adminMain>.adminStatus>.contract>ul{width:33%;float:left;text-align:left;font-size:1.2em;}
+.adminMain>.adminStatus>.contract>ul>li{height:60px;line-height:60px;}
+.adminMain>.adminStatus>.contract>ul>li>select{width:180px;}
+.adminMain>.adminStatus>.contract>ul>li>textarea{width:630px;height:60px;}

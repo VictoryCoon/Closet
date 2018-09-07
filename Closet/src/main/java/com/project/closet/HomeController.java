@@ -10,18 +10,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 /* 
  * Developer : G
- * Description : ÇÁ·ÎÁ§Æ®ÀÇ Àü¹İÀûÀÎ Èå¸§¿¡ ´ëÇÑ ¸í½Ã.
+ * Description : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½å¸§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
  * FLOW
- * = View(JSP).submit(Formµ¥ÀÌÅÍ Á¦Ãâ¿¡ ´ëÇÏ¿©)
- *   -> @Controller¿¡ ÇØ´çÇÏ´Âclass¿¡¼­ ReqeustMappingÀÇ °ªÀ» ÃßÀû
- *   -> Service(Impl)¿¡¼­ 1Â÷ÀûÀ¸·Î µ¥ÀÌÅÍ °¡°ø, È¤Àº Dao(Impl)¿¡¼­ °¡Á®¿Â °ªÀ» °¡°ø.
- *   -> Dao(Impl)¿¡¼­ SqlSessionÀ¸·Î Äõ¸®È£Ãâ(µ¥ÀÌÅÍ Á÷Á¢ Á¢±Ù) ¹× Return°ª GET.
- *   -> Dao(Impl)¿¡¼­ Service(Impl)·Î °ª Àü´Ş, Service¿¡¼­´Â °ª¿¡ µû¸¥ True X False È®ÀÎ ÈÄ Controller·Î Àü´Ş
- *   -> Controller ¿¡¼­ Service·ÎºÎÅÍ È®ÀÎµÈ °ª¿¡ µû¶ó View¿¡ °ª Àü´Ş(ModelAndView) ¶Ç´Â True X False ·ÎÁ÷ ¼öÇà.
- *   -> È­¸é ÀüÈ¯.
- * Flow ¿ä¾à : View -> Controller -> Service -> Dao -> Database(MyBatis) - > Dao(R) -> Service(R) -> Controller(R) -> View(R)			// R = Result
+ * = View(JSP).submit(Formï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½Ï¿ï¿½)
+ *   -> @Controllerï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½classï¿½ï¿½ï¿½ï¿½ ReqeustMappingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ *   -> Service(Impl)ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, È¤ï¿½ï¿½ Dao(Impl)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+ *   -> Dao(Impl)ï¿½ï¿½ï¿½ï¿½ SqlSessionï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ Returnï¿½ï¿½ GET.
+ *   -> Dao(Impl)ï¿½ï¿½ï¿½ï¿½ Service(Impl)ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, Serviceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ True X False È®ï¿½ï¿½ ï¿½ï¿½ Controllerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ *   -> Controller ï¿½ï¿½ï¿½ï¿½ Serviceï¿½Îºï¿½ï¿½ï¿½ È®ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Viewï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ModelAndView) ï¿½Ç´ï¿½ True X False ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+ *   -> È­ï¿½ï¿½ ï¿½ï¿½È¯.
+ * Flow ï¿½ï¿½ï¿½ : View -> Controller -> Service -> Dao -> Database(MyBatis) - > Dao(R) -> Service(R) -> Controller(R) -> View(R)			// R = Result
  * Date : 2018.09.04
- * E.T.C : HomeController.java´Â Àı´ë Áö¿ìÁö ¸» °Í, BasePackageÆÄÀÏÀÌ¾î¼­ ±×·±Áö, Áö¿ì¸é ´Ù¸¥°Íµµ ´Ù ¸ÔÅë µÊ.
+ * E.T.C : HomeController.javaï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½, BasePackageï¿½ï¿½ï¿½ï¿½ï¿½Ì¾î¼­ ï¿½×·ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½Íµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
  */
 
 @Controller
@@ -35,7 +35,7 @@ public class HomeController {
 	@RequestMapping("sessionEndUp")
 	public ModelAndView sessionEndUp() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("msg","¼¼¼ÇÀÌ ¸¸·áµÇ¾ú½À´Ï´Ù. ´Ù½Ã ·Î±×ÀÎÇØÁÖ¼¼¿ä.");
+		mav.addObject("msg","ì„¸ì…˜ì´ ë§Œë£Œë˜ì—ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸í•´ ì£¼ì„¸ìš”.");
 		mav.setViewName("main");
 		
 		return mav;

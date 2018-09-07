@@ -9,37 +9,42 @@
 	<h1 id="home">Management</h1>
 	<%@ include file="/WEB-INF/jsp/admin/aLeft.jsp"%>
 	<div class="adminStatus">
-		<div class="contract">
-			<h2 style="margin-bottom:30px;">계약관리</h2>
+		<div class="general">
+			<h2 style="margin-bottom:30px;">고객관리</h2>
 			<ul>
-				<li>계약업체</li>
-				<li>상품분류</li>
-				<li>기타사항</li>
+				<li>Event</li>
+				<li>Promotion</li>
+				<li>Survey</li>
 			</ul>
 			<ul>
 				<li>
-					상호 : <input type="text" id="comName" name="comName"/>
-				</li>
-				<li>
-					카테고리 : <select id="cate1">
+					<select id="eventList">
 						<option value="">선택</option>
 					</select>
 				</li>
 				<li>
-					<textarea id="remark"></textarea>
-				</li>
-			</ul>
-			<ul>
-				<li>
-					사업자등록번호 : <input type="text" id="comNumb" name="socialNo"/><!-- 숫자와 -만 처리하는 정규식 찾기 -->
-				</li>
-				<li>
-					상품 : <select id="cate2">
+					<select id="promoList">
 						<option value="">선택</option>
 					</select>
 				</li>
 				<li>
-				&nbsp;
+					<select id="surveyList">
+						<option value="">선택</option>
+					</select>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					활성화 : <input type="radio" id="eventY" name="eventYn" value="Y"/>
+					비활성 : <input type="radio" id="eventN" name="eventYn" value="N"/>
+				</li>
+				<li>
+					활성화 : <input type="radio" id="promoY" name="promoYn" value="Y"/>
+					비활성 : <input type="radio" id="promoN" name="promoYn" value="N"/>
+				</li>
+				<li>
+					활성화 : <input type="radio" id="surveyY" name="surveyYn" value="Y"/>
+					비활성 : <input type="radio" id="surveyN" name="surveyYn" value="N"/>
 				</li>
 			</ul>
 			<button id="submit" style="margin-top:30px;">저장</button>

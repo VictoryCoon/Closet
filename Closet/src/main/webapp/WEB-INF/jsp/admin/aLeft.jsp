@@ -9,6 +9,9 @@ $(document).ready(function(){
 	$("#content").click(function(){
 		location.href="content";
 	});
+	$("#client").click(function(){
+		location.href="client";
+	});
 });
 </script>
 <div class="adminList">
@@ -16,5 +19,6 @@ $(document).ready(function(){
 		<li id="general">General</li>
 		<li id="contract">Contract</li>
 		<li id="content">Contents</li>
+		<li id="client">Clients</li>
 	</ul>
 </div>

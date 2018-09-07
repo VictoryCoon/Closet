@@ -74,6 +74,12 @@ public class AdminController {
 		mav.setViewName("admin/content");
 		return mav;
 	}
+	@RequestMapping("client")
+	public ModelAndView client() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/client");
+		return mav;
+	}
 
 	@RequestMapping(value = "companyInfo.json", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public @ResponseBody List<Object> companyInfo(@ModelAttribute AdminDto dto) throws Exception {

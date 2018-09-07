@@ -3,6 +3,7 @@ package com.project.closet.admin;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,9 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Autowired
 	SqlSession sqlSession;
+	
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate;
 	
 	@Override
 	public boolean adminIn(AdminDto dto) {
