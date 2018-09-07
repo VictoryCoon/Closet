@@ -5,9 +5,9 @@
 .userInfo>.infoList{width:100%;height:450px;border:0px solid #000;box-sizing:border-box;padding:15px;box-shadow:3px 3px 6px #ccc;}
 
 .userInfo>.infoList>ul{float:left;border:0px solid #000;box-sizing:border-box;font-size:1.2em;}
-.userInfo>.infoList>ul:nth-child(1){width:10%;margin-right:5%;}
-.userInfo>.infoList>ul:nth-child(2){width:40%;margin-right:5%;}
-.userInfo>.infoList>ul:nth-child(3){width:40%;}
+.userInfo>.infoList>ul:nth-child(1){width:20%;margin-right:5%;}
+.userInfo>.infoList>ul:nth-child(2){width:30%;margin-right:5%;}
+.userInfo>.infoList>ul:nth-child(3){width:35%;}
 
 .userInfo>.infoList>ul>li{text-align:left;text-indent:12px;height:48px;}
 .userInfo>.infoList>ul.current>li>input{

@@ -71,7 +71,7 @@ $(document).ready(function() {
 		<li data-row="1" data-col="1" data-sizex="4" data-sizey="2">
 			<span class="gs-resize-handle gs-resize-handle-both"></span>
 		</li>
-		<li data-row="1" data-col="12" data-sizex="2" data-sizey="4">
+		<li data-row="1" data-col="1" data-sizex="2" data-sizey="4">
 			<span class="gs-resize-handle gs-resize-handle-both"></span>
 		</li>
 		<li data-row="1" data-col="1" data-sizex="2" data-sizey="4">

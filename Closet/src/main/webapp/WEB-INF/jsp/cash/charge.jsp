@@ -157,7 +157,7 @@ function execMobile() {
 	<h1 class="title">Leaf Shop</h1>
 	<div class="chargeDtl">
 		<ul>
-			<li>리프 : </li>
+			<li>금액선택 : </li>
 			<li>결제금액 : </li>
 			<li>결제방법 : </li>
 		</ul>
@@ -165,7 +165,16 @@ function execMobile() {
 			<li>
 				<select id="leafAmt">
 					<option value="">선택</option>
-					<option value="5000">5 Leaf - - - ￦ 5,000</option>
+					<option value= "5000">￦ &nbsp;5,000</option>
+					<option value="10000">￦ 10,000</option>
+					<option value="15000">￦ 15,000</option>
+					<option value="20000">￦ 20,000</option>
+					<option value="25000">￦ 25,000</option>
+					<option value="30000">￦ 30,000</option>
+					<option value="35000">￦ 35,000</option>
+					<option value="40000">￦ 40,000</option>
+					<option value="45000">￦ 45,000</option>
+					<option value="50000">￦ 50,000</option>
 				</select> 
 			</li>
 			<li><span id="cashAmtByLeaf">리프가 선택되면 Trigger</span></li>

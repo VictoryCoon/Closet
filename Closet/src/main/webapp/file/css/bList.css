@@ -64,7 +64,7 @@
 
 .itemFrame>.itemList{
 	width:280px;height:473px;border:0px solid #000;box-sizing:border-box;
-	box-shadow:3px 3px 9px #DDDDDD;margin-top:10px;margin-left:10px;overflow:scroll;
+	box-shadow:3px 3px 9px #DDDDDD;margin-top:10px;margin-left:10px;overflow-y:scroll;overflow-x:hidden;
 }
 .itemFrame>.itemList>ul{
 	width:280px;height:auto;
