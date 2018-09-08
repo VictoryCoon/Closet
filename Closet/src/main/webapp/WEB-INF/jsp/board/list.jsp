@@ -5,6 +5,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page session="false" %>
 <%@ include file="/WEB-INF/jsp/common/head.jsp"%>
+<script>
+$(document).ready(function(){
+	$("#viewDesc").click(function(){
+		$(".detailFrame").fadeIn();
+		
+	});
+	$("#closeDesc").click(function(){
+		$(".detailFrame").fadeOut();
+		
+	});
+});
+</script>
 <body>
 <div class="itemFrame">
 	<div class="itemList" id="itemList">
@@ -47,11 +59,27 @@
 	</div>
 </div>
 <div class="contentFrame">
-	<div class="descView">
+	<div class="descView" id="viewDesc">
 		Descriptions.
 	</div>
 </div>
-
+<div class="detailFrame">
+	<span class="closeDetail" id="closeDesc"></span>
+	<div class="detailWidth">
+		<div class="dtlContent1" id="detailItem">
+		
+		</div>
+		<div class="dtlContent2" id="detailBoard">
+		
+		</div>
+		<div class="dtlContent3" id="detailDesc">
+		
+		</div>
+		<div class="boardRpy" id="boardRpy">
+		
+		</div>
+	</div>
+</div>
 <%-- <div class="listFrame">
 	<ul class="bBanner">
 		<li>Writer</li><!-- 작성자명/성별 -->

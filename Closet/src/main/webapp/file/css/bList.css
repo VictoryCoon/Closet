@@ -76,3 +76,29 @@
 	border:0px solid;box-sizing:border-box;
 	box-shadow:3px 3px 9px #DDDDDD;
 }
+
+/* 게시판 디테일 포멧 */
+.detailFrame{
+	position:fixed;width:100%;height:100%;left:0;top:0;
+	z-index:2147483647;background-color:rgba(0,0,0,0.4);
+	border:0px solid;box-sizing:border-box;
+}
+
+.detailFrame>span.closeDetail{
+	width:24px;height:24px;position:relative;float:right;transition:0.2s;
+	right:18px;top:18px;border:3px double #AAAAAA;border-radius:50%;
+	background:url("/file/img/stop.png") no-repeat 50%;background-size:125%;
+}
+.detailFrame>span.closeDetail:hover{cursor:pointer;background-color:rgba(0,0,0,0.1);}
+
+.detailFrame>.detailWidth{width:1500px;height:6900px;border:0px solid #FFF;box-sizing:border-box;margin:0 auto;}
+.detailFrame>.detailWidth>div{
+	float:left;margin:12px;height:600px;border:1px solid #fff;
+	box-sizing:border-box;background-color:rgba(255,255,255,0.9);
+	box-shadow:3px 3px 9px #CCCCCC;border-radius:9px;
+}
+.detailFrame>.detailWidth>.dtlContent1{width:390px;}
+.detailFrame>.detailWidth>.dtlContent2{width:646px;}
+.detailFrame>.detailWidth>.dtlContent3{width:390px;}
+
+.detailFrame>.detailWidth>.boardRpy{width:1474px;border-radius:0px;}
