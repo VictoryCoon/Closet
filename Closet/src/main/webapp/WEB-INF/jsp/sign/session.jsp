@@ -16,11 +16,12 @@
 	String sessionRegDateSlash = "";
 	String sessionBirthday = "";
 	String sessionBirthdayKOR = "";
-	String sessionBirthdaySlash = "";
+	String sessionBirthdaySlash = "" ;
 	String sessionPw = "";
 	String sessionMobile = "";
 	String sessionMobileHipen = "";
 	String sessionAddress = "";
+	String sessionPoint = "";
 	String sessionCash = "";
 	String sessionCashLastAmt = "";
 	String sessionCashLastDate = "";
@@ -72,6 +73,7 @@
 			sessionMobileHipen = sessionMobile.substring(0,3) + "-" + sessionMobile.substring(3,6) + "-" + sessionMobile.substring(6,10);
 		}
 		sessionAddress = (String) sessionInfo.getAttribute("address");
+		sessionPoint = (String) sessionInfo.getAttribute("point");
 		sessionCash = (String) sessionInfo.getAttribute("cash");
 		sessionCashLastAmt = (String) sessionInfo.getAttribute("cashLastAmt");
 		sessionCashLastDate = (String) sessionInfo.getAttribute("cashLastDate");
@@ -116,6 +118,7 @@
 		sessionMobile = "";
 		sessionMobileHipen = "";
 		sessionAddress = "";
+		sessionPoint = "";
 		sessionCash = "";
 		sessionCashLastAmt = "";
 		sessionCashLastDate = "";

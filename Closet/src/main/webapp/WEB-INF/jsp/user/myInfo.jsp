@@ -170,16 +170,16 @@ function profileUpload(value) {
 
 <!-- 신체치수 등록/변경 ParameterSet -->
 <form name="updateSize" method="POST">
-	<input type="hidden" id="cgLength" name="length" value=""/>
-	<input type="hidden" id="cgWeight" name="weight" value=""/>
-	<input type="hidden" id="cgHead" name="head" value=""/>
-	<input type="hidden" id="cgNeck" name="neck" value=""/>
+	<input type="hidden" id="cgLength"   name="length" value=""/>
+	<input type="hidden" id="cgWeight"   name="weight" value=""/>
+	<input type="hidden" id="cgHead"     name="head" value=""/>
+	<input type="hidden" id="cgNeck"     name="neck" value=""/>
 	<input type="hidden" id="cgShoulder" name="shoulder" value=""/>
-	<input type="hidden" id="cgWaist" name="waist" value=""/>
-	<input type="hidden" id="cgThigh" name="thigh" value=""/>
-	<input type="hidden" id="cgFoot" name="foot" value=""/>
-	<input type="hidden" id="cgFinger" name="finger" value=""/>
-	<input type="hidden" name="userId" value="<%=sessionId%>"/>
+	<input type="hidden" id="cgWaist"    name="waist" value=""/>
+	<input type="hidden" id="cgThigh"    name="thigh" value=""/>
+	<input type="hidden" id="cgFoot"     name="foot" value=""/>
+	<input type="hidden" id="cgFinger"   name="finger" value=""/>
+	<input type="hidden"                 name="userId" value="<%=sessionId%>"/>
 </form>
 <div class="userInfo">
 	<h1 class="title">User Informations</h1>

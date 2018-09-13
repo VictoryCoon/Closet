@@ -136,7 +136,7 @@ function userIdChk() {
 					alert("이미 존재하는 ID입니다.");
 				} else {
 					alert("사용이 가능한 ID입니다!");
-					$("#joinId").attr("readonly",true);
+					$("#joinId").attr("readonly", true);
 					$("#joinId").css({'background-color':'#CCCCCC'});
 					$("#idChkYn").val("Y");
 				}
@@ -145,7 +145,10 @@ function userIdChk() {
 		},
 		error:function(XMLHttpRequest, textStatus, errorThrown) {
 			alert("Ajax Error : Check parameters or statements Of Ajax Elements in the Inspector log.");
-			console.log("ParamData" + postData);
+			console.log("ParamData : " + postData);
+			console.log("XMLHttpRequest : " + XMLHttpRequest);
+			console.log("textStatus : " + textStatus);
+			console.log("errorThrown : " + errorThrown);
 			return;
 		}
 	});

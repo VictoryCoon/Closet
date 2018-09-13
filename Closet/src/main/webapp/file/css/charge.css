@@ -3,13 +3,13 @@
 .chargePage{width:100%;height:auto;border:0px solid #000;box-sizing:border-box;text-align:center;}
 
 /* 결제방법 선택(상단) */
-.chargePage>.chargeDtl{width:100%;height:150px;border:0px solid #000;box-sizing:border-box;padding:15px;box-shadow:3px 3px 6px #ccc;}
+.chargePage>.chargeDtl{width:100%;height:210px;border:0px solid #000;box-sizing:border-box;padding:15px;box-shadow:3px 3px 6px #ccc;}
 .chargePage>.chargeDtl>ul{float:left;border:0px solid #000;box-sizing:border-box;font-size:1.2em;}
 .chargePage>.chargeDtl>ul>li{text-align:left;text-indent:12px;height:48px;}
 .chargePage>.chargeDtl>ul>li>select{font-size:1.0em;width:240px;height:24px;border:0px solid;box-sizing:border-box;border-radius:6px;box-shadow:3px 3px 9px;}
+.chargePage>.chargeDtl>ul>li>input.point{font-size:1.0em;width:240px;height:24px;border:0px solid;box-sizing:border-box;border-radius:6px;box-shadow:3px 3px 9px;text-indent:6px;direction:rtl;}
 .chargePage>.chargeDtl>ul:nth-child(1){width:10%;margin-right:5%;}
-.chargePage>.chargeDtl>ul:nth-child(2){width:40%;margin-right:5%;}
-.chargePage>.chargeDtl>ul:nth-child(3){width:40%;}
+.chargePage>.chargeDtl>ul:nth-child(2){width:80%;margin-right:5%;}
 
 /* 결제상세 입력(하단) */
 .chargePage>.chargePmt{
@@ -18,12 +18,15 @@
 }
 .chargePage>.chargePmt>h3{margin-bottom:9px;}
 .chargePage>.chargePmt>ul>li{height:48px;border:0px solid;box-sizing:border-box;}
-.chargePage>.chargePmt>ul>li>input{font-size:1.3em;width:360px;height:36px;border:0px solid;box-sizing:border-box;border-radius:6px;box-shadow:3px 3px 9px;text-indent:6px;}
+.chargePage>.chargePmt>ul>li>input{font-size:1.3em;width:370px;height:36px;border:0px solid;box-sizing:border-box;border-radius:6px;box-shadow:3px 3px 9px;text-indent:6px;}
 .chargePage>.chargePmt>ul>li>select{font-size:1.3em;width:360px;height:36px;border:0px solid;box-sizing:border-box;border-radius:6px;box-shadow:3px 3px 9px;}
 .chargePage>.chargePmt>ul>li>span{font-size:0.8em;color:#CCCCCC;}
 
 .chargePage>.chargePmt>ul>li.cardNoFormat>input{width:78px;font-size:0.9em;text-align:center;}
 .chargePage>.chargePmt>ul>li.cardNoFormat>span{font-size:1.1em;color:#AAAAAA;}
+
+.chargePage>.chargePmt>ul>li.cardOwFormat>h3{display:inline;color:#CCCCCC;}
+.chargePage>.chargePmt>ul>li.cardOwFormat>input{width:210px;font-size:1.0em;text-align:left;}
 
 .chargePage>.chargePmt>ul>li.cardPwFormat>h3{display:inline;color:#CCCCCC;}
 .chargePage>.chargePmt>ul>li.cardPwFormat>input{width:40px;font-size:1.0em;text-align:center;}
@@ -31,3 +34,6 @@
 
 .chargePage>.chargePmt>ul>li.cardExpFormat>h3{display:inline;color:#CCCCCC;}
 .chargePage>.chargePmt>ul>li.cardExpFormat>input{width:75px;font-size:1.0em;text-align:center;}
+
+.chargePage>.chargePmt>ul>li.mobileFormat>h3{display:inline;color:#CCCCCC;}
+.chargePage>.chargePmt>ul>li.mobileFormat>input{width:240px;font-size:1.0em;text-align:left;}
