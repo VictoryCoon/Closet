@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.closet.dao.CashDao">
+    <select id="cashChargeStartProc" statementType="CALLABLE" parameterType="HashMap">
+    	{
+    		CALL WEB_CASH_PKG.Cash_Charge_Start_Proc (
+                #{SP_User_Id},
+                #{SP_Cash_Raw_Amt},
+                #{SP_Cash_Real_Amt},
+                #{SP_Pmt_Kind},
+                #{SP_Pmt_Bank_Cd},
+                #{SP_Pmt_Depositor},
+                #{SP_Pmt_Account},
+                #{SP_Pmt_Card_Cd},
+                #{SP_Pmt_Card_No},
+                #{SP_Pmt_Card_Ow},
+                #{SP_Pmt_Card_Quota},
+                #{SP_Pmt_Card_Pw},
+                #{SP_Pmt_Card_Exp_Year},
+                #{SP_Pmt_Card_Exp_Month},
+                #{SP_Pmt_Mobile},
+                #{SP_Pmt_Point},
+                #{SP_OutCashTempNo, mode=OUT, jdbcType=VARCHAR},
+                #{SP_StatusValue, mode=OUT, jdbcType=VARCHAR},
+                #{SP_ReturnCode, mode=OUT, jdbcType=VARCHAR},
+                #{SP_ReturnMsg, mode=OUT, jdbcType=VARCHAR}
+    		)
+    	}
+    </select>
+    <select id="cashChargeInsProc" statementType="CALLABLE" parameterType="HashMap">
+    	{
+    		CALL WEB_CASH_PKG.Cash_Charge_Start_Proc (
+                #{SP_User_Id},
+                #{SP_Cash_Raw_Amt},
+                #{SP_Cash_Real_Amt},
+                #{SP_Pmt_Kind},
+                #{SP_Pmt_Bank_Cd},
+                #{SP_Pmt_Depositor},
+                #{SP_Pmt_Account},
+                #{SP_Pmt_Card_Cd},
+                #{SP_Pmt_Card_No},
+                #{SP_Pmt_Card_Ow},
+                #{SP_Pmt_Card_Quota},
+                #{SP_Pmt_Card_Pw},
+                #{SP_Pmt_Card_Exp_Year},
+                #{SP_Pmt_Card_Exp_Month},
+                #{SP_Pmt_Mobile},
+                #{SP_Pmt_Point},
+                #{SP_OutCashTempNo, mode=OUT, jdbcType=VARCHAR},
+                #{SP_StatusValue, mode=OUT, jdbcType=VARCHAR},
+                #{SP_ReturnCode, mode=OUT, jdbcType=VARCHAR},
+                #{SP_ReturnMsg, mode=OUT, jdbcType=VARCHAR}
+    		)
+    	}
+    </select>
+</mapper>

@@ -128,20 +128,21 @@ $(document).ready(function() {
 			alert("카카오페이는 제휴나 하고!");
 		}
 		
-		$("#cashParam01").val("cashTempNo");	// 이건 생성방법을 따로 고안.(CashTrialLog테이블을 만들어볼까...)
-		$("#cashParam02").val($("#cashAmt").val());
-		$("#cashParam03").val($("input:radio[name=paymentType]:checked").val());
-		$("#cashParam04").val($("#selectBankCdReceive").val());
-		$("#cashParam05").val($("#selectBankCdSend").val());
-		$("#cashParam06").val($("#depositor").val());
-		$("#cashParam07").val($("#account").val());
-		$("#cashParam08").val($("#selectCardCd").val());
-		$("#cashParam09").val(cardNo);
-		$("#cashParam10").val($("#cardOw").val());
-		$("#cashParam11").val($("#cardPw").val());
-		$("#cashParam12").val($("#cardExpYear").val());
-		$("#cashParam13").val($("#cardExpMonth").val());
-		$("#cashParam14").val($("#mobile").val());
+		$("#cashParam02").val("cashTempNo");	// 이건 생성방법을 따로 고안.(CashTrialLog테이블을 만들어볼까...)
+		$("#cashParam03").val($("#cashAmt").val());
+		$("#cashParam04").val($("input:radio[name=paymentType]:checked").val());
+		//$("#cashParam05").val($("#selectBankCdReceive").val());
+		$("#cashParam06").val($("#selectBankCdSend").val());
+		$("#cashParam07").val($("#depositor").val());
+		$("#cashParam08").val($("#account").val());
+		$("#cashParam09").val($("#selectCardCd").val());
+		$("#cashParam10").val(cardNo);
+		$("#cashParam11").val($("#cardOw").val());
+		$("#cashParam12").val($("#cardQuota").val());
+		$("#cashParam13").val($("#cardPw").val());
+		$("#cashParam14").val($("#cardExpYear").val());
+		$("#cashParam15").val($("#cardExpMonth").val());
+		$("#cashParam16").val($("#mobile").val());
 		
 		pay();
 	});
@@ -294,35 +295,44 @@ function pay() {
 	}
 	
 	var params = {
-		'cashTempNo'      : document.cashCharge.cashTempNo.value,
-		'cashTempAmt'     : document.cashCharge.cashTempAmt.value,
-		'pmtKind'         : document.cashCharge.pmtKind.value,
-		'pmtRcvBankCd'    : document.cashCharge.pmtRcvBankCd.value,
-		'pmtBankCd'       : document.cashCharge.pmtBankCd.value,
-		'pmtDepositor'    : document.cashCharge.pmtDepositor.value,
-		'pmtAccount'      : document.cashCharge.pmtAccount.value,
-		'pmtCardCd'       : document.cashCharge.pmtCardCd.value,
-		'pmtCardNo'       : document.cashCharge.pmtCardNo.value,
-		'pmtCardOw'       : document.cashCharge.pmtCardOw.value,
-		'pmtCardPw'       : document.cashCharge.pmtCardPw.value,
-		'pmtCardExpYear'  : document.cashCharge.pmtCardExpYear.value,
-		'pmtCardExpMonth' : document.cashCharge.pmtCardExpMonth.value,
-		'pmtMobile'       : document.cashCharge.pmtMobile.value,
-		'pmtPoint'        : document.cashCharge.pmtPoint.value,
-		'birthday'        : document.cashCharge.birthday.value,
 		'userId'          : document.cashCharge.userId.value,
-		'successCode'     : document.cashCharge.successCode.value
+		'cashRawAmt'     : document.cashCharge.cashRawAmt.value,
+		'cashRealAmt'     : document.cashCharge.cashRealAmt.value,
+		'pmtKind'         : document.cashCharge.pmtKind.value,
+		//'pmtRcvBankCd'    : document.cashCharge.pmtRcvBankCd.value,
+		'bankCd'       : document.cashCharge.pmtBankCd.value,
+		'depositor'    : document.cashCharge.pmtDepositor.value,
+		'account'      : document.cashCharge.pmtAccount.value,
+		'cardCd'       : document.cashCharge.pmtCardCd.value,
+		'cardNo'       : document.cashCharge.pmtCardNo.value,
+		'cardOw'       : document.cashCharge.pmtCardOw.value,
+		'cardQuota'    : document.cashCharge.pmtCardQuota.value,
+		'cardPw'       : document.cashCharge.pmtCardPw.value,
+		'cardExpYear'  : document.cashCharge.pmtCardExpYear.value,
+		'cardExpMonth' : document.cashCharge.pmtCardExpMonth.value,
+		'mobile'       : document.cashCharge.pmtMobile.value,
+		'point'        : document.cashCharge.pmtPoint.value,
 	};
 	
 	$.ajax({
-		url:'/cash/test.do',
+		url:'/cash/tryCharge.do',
 		type:'POST',
-		data:postData,
+		data:params,
 		contentType:"application/x-www-form-urlencoded;charsset=UTF-8",
 		dataType:'json',
 		success:function(rsp) {
-			document.cashCharge.action = "/cash/charge.do";
-			document.cashCharge.submit();
+			alert("RESPONSE_DATA : "+rsp);
+			console.log("RESPONSE_DATA : "+rsp);
+			//document.cashCharge.action = "/cash/charge.do";
+			//document.cashCharge.submit();
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("Ajax Error : Check parameters or statements Of Ajax Elements in the Inspector log.");
+			console.log("ParamData : " + params);
+			console.log("XMLHttpRequest : " + XMLHttpRequest);
+			console.log("textStatus : " + textStatus);
+			console.log("errorThrown : " + errorThrown);
+			return;
 		}
 	});
 	
@@ -345,25 +355,24 @@ function execMobile() {
 
 </script>
 <body>
-<form name="cashCharge" method="POST">
-	<input type="hidden" id="cashParam01" name="cashTempNo"      value=""/><!-- 여부확인 -->
-	<input type="hidden" id="cashParam02" name="cashTempAmt"     value=""/><!-- 여부확인 -->
-	<input type="hidden" id="cashParam03" name="pmtKind"         value=""/>
-	<input type="hidden" id="cashParam04" name="pmtRcvBankCd"       value=""/>
-	<input type="hidden" id="cashParam05" name="pmtBankCd"       value=""/>
-	<input type="hidden" id="cashParam06" name="pmtDepositor"    value=""/>
-	<input type="hidden" id="cashParam07" name="pmtAccount"      value=""/>
-	<input type="hidden" id="cashParam08" name="pmtCardCd"       value=""/>
-	<input type="hidden" id="cashParam09" name="pmtCardNo"       value=""/>
-	<input type="hidden" id="cashParam10" name="pmtCardOw"       value=""/>
-	<input type="hidden" id="cashParam11" name="pmtCardPw"       value=""/><!-- 카드만기:연도 -->
-	<input type="hidden" id="cashParam12" name="pmtCardExpYear"  value=""/><!-- 카드만기:연 -->
-	<input type="hidden" id="cashParam13" name="pmtCardExpMonth" value=""/><!-- 카드만기:월 -->
-	<input type="hidden" id="cashParam14" name="pmtMobile"       value=""/><!-- 휴대폰번호 -->
-	<input type="hidden" id="cashParam15" name="pmtPoint"        value=""/><%-- 포인트 <%=sessionPoint%> --%>
-	<input type="hidden" id="cashParam16" name="birthday"        value="<%=sessionBirthday%>"/>	<!-- 생일자 이벤트 -->
-	<input type="hidden" id="cashParam17" name="userId"          value="<%=sessionId%>"/>
-	<input type="hidden" id="cashParam18" name="successCode"     value=""/>
+<form name="cashCharge" method="POST" style="display:block;">
+	<input type="text" id="cashParam01" name="userId"          value="<%=sessionId%>"/>
+	<input type="text" id="cashParam02" name="cashRawAmt"      value="30000"/>
+	<input type="text" id="cashParam03" name="cashRealAmt"     value="27000"/>
+	<input type="text" id="cashParam04" name="pmtKind"         value="CD"/>
+	<!-- <input type="text" id="cashParam04" name="pmtRcvBankCd"    value=""/> -->
+	<input type="text" id="cashParam06" name="pmtBankCd"       value=""/>
+	<input type="text" id="cashParam07" name="pmtDepositor"    value=""/>
+	<input type="text" id="cashParam08" name="pmtAccount"      value=""/>
+	<input type="text" id="cashParam09" name="pmtCardCd"       value="088"/>
+	<input type="text" id="cashParam10" name="pmtCardNo"       value="4518777766669999"/>
+	<input type="text" id="cashParam11" name="pmtCardOw"       value="김첨지"/>
+	<input type="text" id="cashParam12" name="pmtCardQuota"    value="1"/>
+	<input type="text" id="cashParam13" name="pmtCardPw"       value="00"/><!-- 카드만기:연도 -->
+	<input type="text" id="cashParam14" name="pmtCardExpYear"  value="23"/><!-- 카드만기:연 -->
+	<input type="text" id="cashParam15" name="pmtCardExpMonth" value="01"/><!-- 카드만기:월 -->
+	<input type="text" id="cashParam16" name="pmtMobile"       value="<%=sessionMobile%>"/><!-- 휴대폰번호 -->
+	<input type="text" id="cashParam17" name="pmtPoint"        value="<%=sessionPoint%>"/><%-- 포인트 <%=sessionPoint%> --%>
 </form>
 <div class="chargePage">
 	<h1 class="title">Cash Shop</h1>
