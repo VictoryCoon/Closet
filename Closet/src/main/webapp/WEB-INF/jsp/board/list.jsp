@@ -6,6 +6,7 @@
 <%@ page session="false" %>
 <%@ include file="/WEB-INF/jsp/common/head.jsp"%>
 <script>
+var clickCount = 1;
 $(document).ready(function(){
 	$("#viewDesc").click(function(){
 		$(".detailFrame").fadeIn();
@@ -15,10 +16,27 @@ $(document).ready(function(){
 		$(".detailFrame").fadeOut();
 		
 	});
+	
+	$("#viewDesc").click(function(){
+		var elements = $("#viewItem, #viewCloset, #viewDesc");
+		console.log(clickCount);
+		if(clickCount == 1){
+			elements.animate({
+				width:'-=50px'
+			});
+			clickCount = 0;
+		}else if(clickCount == 0) {
+			elements.animate({
+				width:'+=50px'
+			});
+			clickCount = 1;
+		}
+
+	})
 });
 </script>
 <body>
-<div class="itemFrame">
+<div class="itemFrame" id="viewItem">
 	<div class="itemList" id="itemList">
 		<ul>
 			<li>Outer</li>
@@ -35,7 +53,7 @@ $(document).ready(function(){
 		</ul>
 	</div>
 </div>
-<div class="boardFrame">
+<div class="boardFrame" id="viewCloset">
 	<div class="closetView">
 		<!-- .html()메소드로 객체 호출. -->
 		ClosetImageView
@@ -63,7 +81,7 @@ $(document).ready(function(){
 		Descriptions.
 	</div>
 </div>
-<div class="detailFrame">
+<!-- <div class="detailFrame">
 	<span class="closeDetail" id="closeDesc"></span>
 	<div class="detailWidth">
 		<div class="dtlContent1" id="detailItem">
@@ -79,30 +97,7 @@ $(document).ready(function(){
 		
 		</div>
 	</div>
-</div>
-<%-- <div class="listFrame">
-	<ul class="bBanner">
-		<li>Writer</li><!-- 작성자명/성별 -->
-		<li>Category</li>
-		<li><%= request.getRequestURI() %></li>
-		<li>Time</li>
-		<li>Hit</li>
-	</ul>
-	<c:forEach items="${list}" var="dto">
-		<ul class="bContent">
-			<li>${dto.userId}</li>
-			<li>${dto.userName}</li><!-- 작성자명/성별 -->			마이바티스 샘플 소스 
-			<li>${dto.boardTitle}</li>
-			<li>${dto.boardContent}</li>
-			<li>${dto.closetCd}</li>
-		</ul><br/>
-	</c:forEach>
-</div>
-<form action="write" method="POST">
-	제목 : <input type="text" id="title" name="title"/><br/>
-	내용 : <input type="text" id="content" name="content"/>
-	<input type="submit" value="shot"/>
-</form> --%>
+</div> -->
 <%@ include file="/WEB-INF/jsp/common/bottom.jsp"%>
 </body>
 </html>

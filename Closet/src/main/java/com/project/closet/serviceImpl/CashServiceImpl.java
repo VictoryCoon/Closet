@@ -20,8 +20,6 @@ public class CashServiceImpl implements CashService{
 	public JSONObject charge(CashDto dto) {
 		HashMap<String, Object> returnMap = cashDao.charge(dto); 
 		JSONObject ajaxMap = new JSONObject(returnMap);
-		System.out.println("Service : "+returnMap);
-		System.out.println("Service : "+ajaxMap);
 		return ajaxMap;
 	}
 	
