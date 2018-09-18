@@ -8,159 +8,49 @@
 <script>
 var successCode = "";
 var afterPoint;
+var afterAmt;
 $(document).ready(function() {
-	$("#afterPoint").text("<%=sessionPoint%>");
-	
 	setTimeout(function() {	
-		/* 숫자만 입력 */
+		/* 포인트 관리 */
 		$("#usePoint").keyup(function(){
+			/* 숫자만 입력 */
 			$(this).val($(this).val().replace(/[^0-9]/g, ""));
 			
 			/* 포인트 잔액 계산 Trigger */
 			var restPoint = stringToInt("<%=sessionPoint%>");
 			var usedPoint = stringToInt($("#usePoint").val());
-			afterPoint = restPoint - usedPoint; 
+			var selectedAmt = stringToInt($("#cashAmt").val());
 			
-			$("#afterPoint").text(afterPoint);
+			afterPoint = restPoint - usedPoint; 
+			afterAmt = stringToInt($("#cashAmt").val()) - usedPoint;
 			
 			if(afterPoint < 0 ) {
 				alert("사용할 수 있는 포인트가 부족합니다.");
-				$("#usePoint").val("");
+				$("#usePoint").val(0);
 				$("#afterPoint").text("<%=sessionPoint%>");
 				return;
+			} else if(selectedAmt < usedPoint) {
+				alert("결제금액보다 더 많은 포인트를 사용하실 수 없습니다.");
+				$("#usePoint").val("");
+				$("#afterPoint").text("<%=sessionPoint%>");
+				$("#cashAmtBySelected").text(selectedAmt);
+				return;
+			}else {
+				$("#afterPoint").text(afterPoint);
+				$("#cashAmtBySelected").text(afterAmt);
 			}
 		});
-	},500);
+	},200);
+
+	$("#afterPoint").text("<%=sessionPoint%>");
+	$("#usePoint").val("0");
 	
+	/* 금액변경 */
 	$("#cashAmt").change(function(){
-		alert(afterPoint);
-		var totalAmt = stringToInt($("#cashAmt option:selected").val()) - afterPoint
-		
-		$("#cashAmtBySelected").text("￦ " + totalAmt);
-	});
-	
-	$("#pay").click(function() {
-		
-		var cardNo = $("#cardNo1").val() + $("#cardNo2").val() + $("#cardNo3").val() + $("#cardNo4").val();
-		
-		if(("input[name:paymentType]:checked").val() == "B") {
-			
-			if($("#selectBankCdReceive").val() == "") {
-				alert("입금하실 은행을 선택해 주세요.");
-				return;
-			}
-			
-			if($("#selectBankCdSend").val() == "") {
-				alert("예금하실 은행을 선택해 주세요.");
-				return;
-			}
-			
-			if($("#depositor").val() == "") {
-				alert("예금주를 입력해 주세요.");
-				return;
-			}
-			
-			if($("#account").val() == "") {
-				alert("계좌번호를 입력해 주세요.");
-				return;
-			}
-			
-			execBank();
-			
-		} else if(("input[name:paymentType]:checked").val() == "C") {
-			
-			if($("#selectCardCd").val() == "") {
-				alert("신용카드사를 선택해 주세요.");
-				return;
-			}
-			
-			if($("#cardNo1").val() == "") {
-				alert("신용카드번호 첫 번째 4자리를 입력해 주세요.");
-				return;
-			}
-			
-			if($("#cardNo2").val() == "") {
-				alert("신용카드번호 두 번째 4자리를 입력해 주세요.");
-				return;
-			}
-			
-			if($("#cardNo3").val() == "") {
-				alert("신용카드번호 세 번째 4자리를 입력해 주세요.");
-				return;
-			}
-			
-			if($("#cardNo4").val() == "") {
-				alert("신용카드번호 네 번째 4자리를 입력해 주세요.");
-				return;
-			}
-			
-			if($("#cardOw").val() == "") {
-				alert("신용카드 소유주를 입력해 주세요.");
-				return;
-			}
-			
-			if($("#cardPw").val() == "") {
-				alert("신용카드 비밀번호 앞 2자리를 입력해 주세요.");
-				return;
-			}
-			
-			if($("#cardExpMonth").val() == "") {
-				alert("신용카드 만기월자를 입력해 주세요.");
-				return;
-			}
-			
-			if($("#cardExpYear").val() == "") {
-				alert("신용카드 만기연도를 앞 2자리를 입력해 주세요.");
-				return;
-			}
-			
-			execCard();
-			
-		} else if(("input[name:paymentType]:checked").val() == "M") {
-			/* 사실 세션정보에서 가져온 연락처를 쓸 것이다. */
-			if($("#mobile").val() == "") {
-				alert("휴대폰 번호를 입력 해 주세요.");
-				return;
-			}
-			
-			execMobile();
-		} else if(("input[name:paymentType]:checked").val() == "K") {
-			alert("카카오페이는 제휴나 하고!");
-		}
-		
-		$("#cashParam02").val("cashTempNo");	// 이건 생성방법을 따로 고안.(CashTrialLog테이블을 만들어볼까...)
-		$("#cashParam03").val($("#cashAmt").val());
-		$("#cashParam04").val($("input:radio[name=paymentType]:checked").val());
-		//$("#cashParam05").val($("#selectBankCdReceive").val());
-		$("#cashParam06").val($("#selectBankCdSend").val());
-		$("#cashParam07").val($("#depositor").val());
-		$("#cashParam08").val($("#account").val());
-		$("#cashParam09").val($("#selectCardCd").val());
-		$("#cashParam10").val(cardNo);
-		$("#cashParam11").val($("#cardOw").val());
-		$("#cashParam12").val($("#cardQuota").val());
-		$("#cashParam13").val($("#cardPw").val());
-		$("#cashParam14").val($("#cardExpYear").val());
-		$("#cashParam15").val($("#cardExpMonth").val());
-		$("#cashParam16").val($("#mobile").val());
-		
-		pay();
-	});
+		$("#usePoint").val("");
+		$("#cashAmtBySelected").text($("#cashAmt option:selected").val());
+	});	
 });
-
-function stringToInt(value) {
-	if ((!value) || value == "")
-		return 0;
-	val = String(value).replace(/,/g, '');
-	return parseInt(value, 10);
-}
-
-function stringToFloat(value) {
-	if ((!value) || value == "")
-		return 0;
-	val = String(value).replace(/,/g, '');
-	return parseFloat(value, 10);
-}
 
 function onSet(checkValue) {
 	var frameSet = $("#infoSet");
@@ -168,7 +58,7 @@ function onSet(checkValue) {
 	
 	frameSet.fadeIn(1000);
 	
-	if(checkValue == "B") {			// 무통장 OR 가상계좌
+	if(checkValue == "BK") {			// 무통장 OR 가상계좌
 		
 		$(".chargePmt").css({'height':'360px'});
 		
@@ -190,7 +80,7 @@ function onSet(checkValue) {
 		tag += '			<input type="text" id="depsitor" placeholder="Depositor"/>';
 		tag += '		</li>';
 		tag += '		<li>';
-		tag += '			<input type="text" id="account" placeholder="Account"/>';
+		tag += '			<input type="text" id="account" placeholder="Account" maxlength="16"/>';
 		tag += '		</li>';
 		tag += '		<li>';
 		tag += '			<span class="annotations">계좌번호는 (-)기호를 제외하고 입력해주세요.<br/>결제하신 계좌번호는 환급계좌로 사용됩니다.</span><!-- 어차피 숫자만 로직 넣을것임 -->';
@@ -201,7 +91,7 @@ function onSet(checkValue) {
 		tag += '	</ul>';
 		
 		frameSet.html(tag);
-	} else if (checkValue == "C") {	// 신용카드
+	} else if (checkValue == "CD") {	// 신용카드
 		
 		$(".chargePmt").css({'height':'420px'});
 		
@@ -214,10 +104,10 @@ function onSet(checkValue) {
 		tag += '			</select>';
 		tag += '		</li>';
 		tag += '		<li class="cardNoFormat">';
-		tag += '			<input type="text"     id="cardNo1" name="cardNo1" placeholder="＊＊＊＊" maxlength="4"/><span> - </span>';
+		tag += '			<input type="text"     id="cardNo1" name="cardNo1" maxlength="4"/><span> - </span>';
 		tag += '			<input type="password" id="cardNo2" name="cardNo2" placeholder="＊＊＊＊" maxlength="4"/><span> - </span>';
 		tag += '			<input type="password" id="cardNo3" name="cardNo3" placeholder="＊＊＊＊" maxlength="4"/><span> - </span>';
-		tag += '			<input type="text"     id="cardNo4" name="cardNo4" placeholder="＊＊＊＊" maxlength="4"/>';
+		tag += '			<input type="text"     id="cardNo4" name="cardNo4" maxlength="4"/>';
 		tag += '		</li>';
 		tag += '		<li class="cardOwFormat">';
 		tag += '			<h3>신용카드 명의 : </h3>&nbsp;&nbsp;&nbsp;';
@@ -241,7 +131,7 @@ function onSet(checkValue) {
 		tag += '	</ul>';
 	
 		frameSet.html(tag);
-	} else if (checkValue == "M") {	// 휴대폰ARS
+	} else if (checkValue == "MB") {	// 휴대폰ARS
 		$(".chargePmt").css({'height':'270px'});
 		
 		tag += '<h3>&lt; 결제정보(휴대전화 ARS) &gt;</h3>';
@@ -267,7 +157,7 @@ function onSet(checkValue) {
 		tag += '	</ul>';
 		
 		frameSet.html(tag);
-	} else if (checkValue == "K") {	// 카카오페이
+	} else if (checkValue == "KA") {	// 카카오페이
 		frameSet.html("KakaopayTest");
 	} else {
 		$(".chargePmt").css({'height':'0'});
@@ -279,27 +169,144 @@ function onSet(checkValue) {
 		$("#account, #cardNo1, #cardNo2, #cardNo3, #cardNo4, #cardPw, #cardExpYear, #cardExpMonth, #mobile").keyup(function(){
 			$(this).val($(this).val().replace(/[^0-9]/g, ""));
 		});
+		
+		$("#pay").click(function() {
+			
+			if($("#cashAmt").val() == "0") {
+				alert("충전하실 금액을 선택해주세요.");
+				return;
+			}
+			
+			if($("input[name=paymentType]:checked").val() == "BK") {
+				
+				if($("#selectBankCdReceive").val() == "") {
+					alert("입금하실 은행을 선택해 주세요.");
+					return;
+				}
+				
+				if($("#selectBankCdSend").val() == "") {
+					alert("예금하실 은행을 선택해 주세요.");
+					return;
+				}
+				
+				if($("#depositor").val() == "") {
+					alert("예금주를 입력해 주세요.");
+					return;
+				}
+				
+				if($("#account").val() == "") {
+					alert("계좌번호를 입력해 주세요.");
+					return;
+				}
+				
+			} else if($("input[name=paymentType]:checked").val() == "CD") {		
+				
+				if($("#selectCardCd").val() == "") {
+					alert("신용카드사를 선택해 주세요.");
+					return;
+				}
+				
+				if($("#cardNo1").val() == "") {
+					alert("신용카드번호 첫 번째 4자리를 입력해 주세요.");
+					return;
+				}
+				
+				if($("#cardNo2").val() == "") {
+					alert("신용카드번호 두 번째 4자리를 입력해 주세요.");
+					return;
+				}
+				
+				if($("#cardNo3").val() == "") {
+					alert("신용카드번호 세 번째 4자리를 입력해 주세요.");
+					return;
+				}
+				
+				if($("#cardNo4").val() == "") {
+					alert("신용카드번호 네 번째 4자리를 입력해 주세요.");
+					return;
+				}
+				
+				if($("#cardOw").val() == "") {
+					alert("신용카드 소유주를 입력해 주세요.");
+					return;
+				}
+				
+				if($("#cardPw").val() == "") {
+					alert("신용카드 비밀번호 앞 2자리를 입력해 주세요.");
+					return;
+				}
+				
+				if($("#cardExpMonth").val() == "") {
+					alert("신용카드 만기월자를 입력해 주세요.");
+					return;
+				}
+				
+				if($("#cardExpYear").val() == "") {
+					alert("신용카드 만기연도를 앞 2자리를 입력해 주세요.");
+					return;
+				}
+				
+			} else if($("input[name=paymentType]:checked").val() == "MB") {
+				/* 사실 세션정보에서 가져온 연락처를 쓸 것이다. */
+				if($("#mobile").val() == "") {
+					alert("휴대폰 번호를 입력 해 주세요.");
+					return;
+				}
+			} else if($("input[name=paymentType]:checked").val() == "KA") {
+				alert("카카오페이는 제휴나 하고!");
+			}
+			
+			$("#cashParam02").val(stringToInt($("#cashAmt").val()));	// Raw
+			$("#cashParam03").val(stringToInt($("#cashAmtBySelected").text()));	// Real
+			$("#cashParam04").val($("input:radio[name=paymentType]:checked").val());
+			//$("#cashParam05").val($("#selectBankCdReceive").val());
+			$("#cashParam06").val($("#selectBankCdSend").val());
+			$("#cashParam07").val($("#depositor").val());
+			$("#cashParam08").val($("#account").val());
+			$("#cashParam09").val($("#selectCardCd").val());
+			if($("input[name=paymentType]:checked").val() == "CD") {
+				$("#cashParam10").val($("#cardNo1").val() + "" + $("#cardNo2").val() + "" + $("#cardNo3").val() + "" + $("#cardNo4").val());
+			} else {
+				$("#cashParam10").val("");
+			}
+			$("#cashParam11").val($("#cardOw").val());
+			$("#cashParam12").val($("#cardQuota").val());
+			$("#cashParam13").val($("#cardPw").val());
+			$("#cashParam14").val($("#cardExpYear").val());
+			$("#cashParam15").val($("#cardExpMonth").val());
+			$("#cashParam16").val($("#mobile").val());
+			$("#cashParam17").val(stringToInt($("#usePoint").val()));
+			
+			console.log($("#cashParam01").val());
+			console.log($("#cashParam02").val());
+			console.log($("#cashParam03").val());
+			console.log($("#cashParam04").val());
+			//console.log($("#cashParam05").val());
+			console.log($("#cashParam06").val());
+			console.log($("#cashParam07").val());
+			console.log($("#cashParam08").val());
+			console.log($("#cashParam09").val());
+			console.log($("#cashParam10").val());
+			console.log($("#cashParam11").val());
+			console.log($("#cashParam12").val());
+			console.log($("#cashParam13").val());
+			console.log($("#cashParam14").val());
+			console.log($("#cashParam15").val());
+			console.log($("#cashParam16").val());
+			console.log($("#cashParam17").val());
+			
+			pay();
+		});
 	},500);
 }
 
 function pay() {
-	
-	if(("input[name:paymentType]:checked").val() == "B") {
-		execBank();
-	} else if(("input[name:paymentType]:checked").val() == "C") {
-		execCard();
-	} else if(("input[name:paymentType]:checked").val() == "M") {
-		execMobile();
-	} else if(("input[name:paymentType]:checked").val() == "K") {
-		alert("카카오페이는 제휴나 하고!");
-	}
-	
 	var params = {
 		'userId'          : document.cashCharge.userId.value,
 		'cashRawAmt'     : document.cashCharge.cashRawAmt.value,
 		'cashRealAmt'     : document.cashCharge.cashRealAmt.value,
 		'pmtKind'         : document.cashCharge.pmtKind.value,
-		//'pmtRcvBankCd'    : document.cashCharge.pmtRcvBankCd.value,
+		//'rcvBankCd'    : document.cashCharge.pmtRcvBankCd.value,
 		'bankCd'       : document.cashCharge.pmtBankCd.value,
 		'depositor'    : document.cashCharge.pmtDepositor.value,
 		'account'      : document.cashCharge.pmtAccount.value,
@@ -321,11 +328,38 @@ function pay() {
 		contentType:"application/x-www-form-urlencoded;charsset=UTF-8",
 		dataType:'json',
 		success:function(rsp) {
+<<<<<<< HEAD
 			alert("RESPONSE_DATA : "+rsp);
 			console.log("RESPONSE_DATA : "+rsp);
 			
 			//document.cashCharge.action = "/cash/charge.do";
 			//document.cashCharge.submit();
+=======
+			if(rsp.SP_ReturnCode != "0") {
+				if(rsp.SP_StatusValue == "BK") {
+					alert("무통장!");
+					return;
+					execBank();
+				} else if(rsp.SP_StatusValue == "CD") {
+					alert("카드!");
+					return;
+					execCard();
+				} else if(rsp.SP_StatusValue == "MB") {
+					alert("모바일!");
+					return;
+					execMobile();
+				} else if(rsp.SP_StatusValue == "KA") {
+					alert("카카오!");
+					return;
+					alert("카카오페이는 제휴나 하고!");
+				}
+				//document.cashCharge.action = "/cash/charge.do";
+				//document.cashCharge.submit();
+			} else {
+				alert("Error : "+rsp.SP_ReturnMsg);
+				return;
+			}
+>>>>>>> branch 'master' of https://github.com/VictoryCoon/Closet
 		},
 		error:function(XMLHttpRequest, textStatus, errorThrown) {
 			alert("Ajax Error : Check parameters or statements Of Ajax Elements in the Inspector log.");
@@ -356,24 +390,24 @@ function execMobile() {
 
 </script>
 <body>
-<form name="cashCharge" method="POST" style="display:block;">
+<form name="cashCharge" method="POST" style="display:none;">
 	<input type="text" id="cashParam01" name="userId"          value="<%=sessionId%>"/>
-	<input type="text" id="cashParam02" name="cashRawAmt"      value="30000"/>
-	<input type="text" id="cashParam03" name="cashRealAmt"     value="27000"/>
-	<input type="text" id="cashParam04" name="pmtKind"         value="CD"/>
-	<!-- <input type="text" id="cashParam04" name="pmtRcvBankCd"    value=""/> -->
+	<input type="text" id="cashParam02" name="cashRawAmt"      value=""/>
+	<input type="text" id="cashParam03" name="cashRealAmt"     value=""/>
+	<input type="text" id="cashParam04" name="pmtKind"         value=""/>
+	<!-- <input type="text" id="cashParam05" name="pmtRcvBankCd"    value=""/> -->
 	<input type="text" id="cashParam06" name="pmtBankCd"       value=""/>
 	<input type="text" id="cashParam07" name="pmtDepositor"    value=""/>
 	<input type="text" id="cashParam08" name="pmtAccount"      value=""/>
-	<input type="text" id="cashParam09" name="pmtCardCd"       value="088"/>
-	<input type="text" id="cashParam10" name="pmtCardNo"       value="4518777766669999"/>
-	<input type="text" id="cashParam11" name="pmtCardOw"       value="김첨지"/>
-	<input type="text" id="cashParam12" name="pmtCardQuota"    value="1"/>
-	<input type="text" id="cashParam13" name="pmtCardPw"       value="00"/><!-- 카드만기:연도 -->
-	<input type="text" id="cashParam14" name="pmtCardExpYear"  value="23"/><!-- 카드만기:연 -->
-	<input type="text" id="cashParam15" name="pmtCardExpMonth" value="01"/><!-- 카드만기:월 -->
+	<input type="text" id="cashParam09" name="pmtCardCd"       value=""/>
+	<input type="text" id="cashParam10" name="pmtCardNo"       value=""/>
+	<input type="text" id="cashParam11" name="pmtCardOw"       value=""/>
+	<input type="text" id="cashParam12" name="pmtCardQuota"    value=""/>
+	<input type="text" id="cashParam13" name="pmtCardPw"       value=""/><!-- 카드만기:연도 -->
+	<input type="text" id="cashParam14" name="pmtCardExpYear"  value=""/><!-- 카드만기:연 -->
+	<input type="text" id="cashParam15" name="pmtCardExpMonth" value=""/><!-- 카드만기:월 -->
 	<input type="text" id="cashParam16" name="pmtMobile"       value="<%=sessionMobile%>"/><!-- 휴대폰번호 -->
-	<input type="text" id="cashParam17" name="pmtPoint"        value="<%=sessionPoint%>"/><%-- 포인트 <%=sessionPoint%> --%>
+	<input type="text" id="cashParam17" name="pmtPoint"        value=""/><%-- 포인트 <%=sessionPoint%> --%>
 </form>
 <div class="chargePage">
 	<h1 class="title">Cash Shop</h1>
@@ -387,7 +421,7 @@ function execMobile() {
 		<ul>
 			<li>
 				<select id="cashAmt">
-					<option value=""> 선택</option>
+					<option value=    "0"> 선택</option>
 					<option value= "5000">￦ &nbsp;5,000</option>
 					<option value="10000">￦ 10,000</option>
 					<option value="15000">￦ 15,000</option>
@@ -401,14 +435,14 @@ function execMobile() {
 				</select> 
 			</li>
 			<li>
-				<input type="text" id="usePoint" value="" class="point"/> / 사용 후 포인트 : <span id="afterPoint"></span>
+				<input type="text" id="usePoint" value="0" class="point"/> / 사용 후 포인트 : <span id="afterPoint"></span>
 			</li>
-			<li><span id="cashAmtBySelected">￦ </span></li>
+			<li><span>￦ </span><span id="cashAmtBySelected">-</span></li>
 			<li>
-				<input type="radio" name="paymentType" value="B" onclick="onSet(this.value);"/><span> 무통장 </span>
-				<input type="radio" name="paymentType" value="C" onclick="onSet(this.value);"/><span> 신용카드 </span>
-				<input type="radio" name="paymentType" value="M" onclick="onSet(this.value);"/><span> 휴대폰ARS </span>
-				<input type="radio" name="paymentType" value="K" onclick="onSet(this.value);"/><span> 카카오페이 </span>
+				<input type="radio" name="paymentType" value="BK" onclick="onSet(this.value);"/><span> 무통장 </span>
+				<input type="radio" name="paymentType" value="CD" onclick="onSet(this.value);"/><span> 신용카드 </span>
+				<input type="radio" name="paymentType" value="MB" onclick="onSet(this.value);"/><span> 휴대폰ARS </span>
+				<input type="radio" name="paymentType" value="KA" onclick="onSet(this.value);"/><span> 카카오페이 </span>
 			</li>
 		</ul>
 	</div>

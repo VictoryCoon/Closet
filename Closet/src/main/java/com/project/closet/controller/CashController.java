@@ -1,6 +1,5 @@
 package com.project.closet.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,11 +44,7 @@ public class CashController {
 	
 	@RequestMapping(value = "tryCharge.do", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public @ResponseBody JSONObject tryCharge(@ModelAttribute CashDto dto, HttpSession session) throws Exception{
-		System.out.println("Controller dto : "+dto.getUserId());
-		System.out.println("Controller dto : "+dto.getCardOw());
 		JSONObject tryResult = cashService.charge(dto);
-		System.out.println("Controller : "+tryResult);
-		
 		return tryResult;
 	}
 }

@@ -25,7 +25,7 @@ public class CashDaoImpl implements CashDao {
 		
 		/* 01 */map.put("SP_User_Id",dto.getUserId());
 		/* 02 */map.put("SP_Cash_Raw_Amt",dto.getCashRawAmt());
-		/* 03 */map.put("SP_Cash_Real_Amt",dto.getCashRawAmt());
+		/* 03 */map.put("SP_Cash_Real_Amt",dto.getCashRealAmt());
 		/* 04 */map.put("SP_Pmt_Kind",dto.getPmtKind());
 		/* 05 */map.put("SP_Pmt_Bank_Cd",dto.getBankCd());
 		/* 06 */map.put("SP_Pmt_Depositor",dto.getDepositor());
@@ -45,7 +45,10 @@ public class CashDaoImpl implements CashDao {
 		sqlSessionTemplate.selectOne("cashChargeStartProc", map);
 		
 		System.out.println("Out Map : "+map);
-				
+		
+		//String tryResult = (String) map.get("SP_ReturnCode");
+		//String pmtValue = (String) map.get("SP_StatusValue");
+		
 		return map; 
 	}
 }

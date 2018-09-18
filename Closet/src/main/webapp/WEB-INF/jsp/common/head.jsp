@@ -9,6 +9,38 @@
 <script>
 var currentDate ="";	//현재일자 전역변
 var message = "${msg}";
+
+/* 문자열 -> 정수 */
+function stringToInt(value) {
+	if ((!value) || value == "")
+		return 0;
+	val = String(value).replace(/,/g, '');
+	return parseInt(value, 10);
+}
+
+/* 문자열 -> 실수 */
+function stringToFloat(value) {
+	if ((!value) || value == "")
+		return 0;
+	val = String(value).replace(/,/g, '');
+	return parseFloat(value, 10);
+}
+
+
+/* Js 날짜 포멧 Start */
+var dateSet = new Date();
+var year = dateSet.getFullYear();
+var month = dateSet.getMonth() + 1;
+if(month < 10) {
+	month = "0" + month;
+}
+var date = dateSet.getDate();
+if(date < 10) {
+	date = "0" + date;
+}
+currentDate = year + "" + month + "" + date;
+/* Js 날짜 포멧 E N D */
+
 $(document).ready(function(){
 	
 	if(message != "") {
@@ -16,20 +48,6 @@ $(document).ready(function(){
 	}else {
 		message = "";
 	}
-	
-	/* Js 날짜 포멧 Start */
-	var dateSet = new Date();
-	var year = dateSet.getFullYear();
-	var month = dateSet.getMonth() + 1;
-	if(month < 10) {
-		month = "0" + month;
-	}
-	var date = dateSet.getDate();
-	if(date < 10) {
-		date = "0" + date;
-	}
-	currentDate = year + "" + month + "" + date;
-	/* Js 날짜 포멧 E N D */
 	
 	$("#logo").click(function(){
 		location.href = "/";
