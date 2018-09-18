@@ -18,4 +18,6 @@ public interface UserDao {
 	public boolean userDrop(UserDto dto);
 	public List<UserDto> testList(UserDto dto);
 	public List<UserDto> userIdChk(UserDto dto);
+	public HashMap<String, Object> showPhoto(UserDto dto);
+	public boolean updateProfile(String uploadPath, String userId);
 }

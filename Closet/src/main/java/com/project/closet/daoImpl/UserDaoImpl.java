@@ -77,6 +77,16 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
+	public boolean updateProfile(String uploadPath, String userId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("profilePath", uploadPath);
+		map.put("userId", userId);
+		int update = 0;
+		update = sqlSession.update("updateProfile", map);
+		return (update != 0) ? true : false;
+	}
+	
+	@Override
 	public boolean userDrop(UserDto dto) {
 		int update = 0;
 		update = sqlSession.update("userDrop", dto);
@@ -94,5 +104,14 @@ public class UserDaoImpl implements UserDao {
 	public List<UserDto> testList(UserDto dto) {
 		List<UserDto> execList = sqlSession.selectList("testAjax",dto);
 		return execList;
+	}
+
+	@Override
+	public HashMap<String, Object> showPhoto(UserDto dto) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		UserDto rtnMap = new UserDto();
+		rtnMap = sqlSession.selectOne("showPhoto", dto);
+		map.put("profilePath", rtnMap.getProfilePath());
+		return map;
 	}
 }

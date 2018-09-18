@@ -10,11 +10,9 @@
 <script>
 $(document).ready(function(){
 	var sessionPw = "<%=sessionPw%>";
-	var profile = "<%=sessionProfilePhoto %>";
-	$("#photoArea").css({'background':'url(' + profile + ') no-repeat 50%','background-size':'100%'});
+	var sessionId = "<%=sessionId%>";
 	
 	$("#passwordChange").click(function(){
-
 		if($("#changePw").val() != "" || $("#changePw").val() != "") {
 			if($("#changePw").val() == $("#confirmPw").val()) {
 				$("#cgPw").val($("#changePw").val());
@@ -138,16 +136,41 @@ $(document).ready(function(){
 	$("#goChangeCloset").click(function(){
 		location.href="/closet/closetShop";
 	});
+	
+	setTimeout(function(){
+		showMe(sessionId);
+	}, 200);
 });
 
 function profileWindow() {
 	$("#profilePhoto").click();
 }
-
-function profileUpload(value) {
-	alert("파일경로 : " + value);
+function profileUploading() {
+	$("#profileUpload").trigger("click");
+	alert("프로필사진을 수정했습니다.");
 }
 
+function showMe(rId) {
+	var postData = {
+		'userId' : rId
+	};
+	
+	$.ajax({
+		url:'/user/showPhoto.json',
+		type:'POST',
+		data:postData,
+		contentType:"application/x-www-form-urlencoded;charsset=UTF-8",
+		dataType:'json',
+		success:function(rsp) {
+			console.log(rsp.profilePath);
+			$("#photoArea").css({'background':'url(/' + rsp.profilePath + ') no-repeat 50%','background-size':'100%'});
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("Ajax Error : Check parameters or statements Of Ajax Elements in the Inspector log.");
+			return;
+		}
+	});
+}
 </script>
 <body>
 <!-- 비밀번호 변경 ParameterSet -->
@@ -167,7 +190,6 @@ function profileUpload(value) {
 	<input type="hidden" id="cgSex" name="sex" value=""/>
 	<input type="hidden" name="userId" value="<%=sessionId%>"/>
 </form>
-
 <!-- 신체치수 등록/변경 ParameterSet -->
 <form name="updateSize" method="POST">
 	<input type="hidden" id="cgLength"   name="length" value=""/>
@@ -227,20 +249,14 @@ function profileUpload(value) {
 			<% } %>
 			<li>　</li>
 			<li>
-				<input type="text" id="cgMobile1" name="cgMobile1" maxlength="3" placeholder="＊＊＊"/> -
-				<input type="text" id="cgMobile2" name="cgMobile2" maxlength="4" placeholder="＊＊＊＊"/> -
-				<input type="text" id="cgMobile3" name="cgMobile3" maxlength="4" placeholder="＊＊＊＊"/>
+				<input type="text" id="cgMobile1" name="cgMobile1" maxlength="3"/> -
+				<input type="text" id="cgMobile2" name="cgMobile2" maxlength="4"/> -
+				<input type="text" id="cgMobile3" name="cgMobile3" maxlength="4"/>
 				<button id="mobileCertify">Certify</button>
 				<button style="display:none;" id="mobileChange">Change</button>
 				<button style="display:none;" id="mobileChanged" disabled>Changed</button>
 				<input type="hidden" id="certifyYn" name="certifyYn" value="N"/>
 			</li>
-			<!-- <li>
-				<input type="text" id="post" name="post"/><button>우편번호 검색</button><br/>
-				상세주소 1 : <input type="text" id="state" name="state"/><br/>
-				상세주소 2 : <input type="text" id="city" name="city"/><br/>
-				상세주소 3 : <input type="text" id="street" name="street"/><br/>
-			</li> -->
 			<li><button id="goChangeCloset" style="width:120px;font-size:1.0em;">옷장 바꾸기</button></li>
 			<li><button id="goCharge" style="width:120px;font-size:1.0em;">포인트 충전</button></li>
 			<li>　</li>
@@ -254,10 +270,12 @@ function profileUpload(value) {
 	<% if(sessionSex != null) { %>
 		<% if(sessionSex.equals("M")) { %>
 		<div class="profilePhoto">
-			<a href="javascript:profileWindow();" id="photoArea">프로필 사진 등록 (320 X 320)</a>	<!-- 사진 호출 Ajax 구현 -->
-			<form action="/file/uploadProfile.do" method="POST" enctype="multipart/form-data" class="fileSet" style="display:none;">
-				<input type="file" id="profilePhoto" name="profilePhoto" onchange="javascript:profileUpload(this.value);"/>
-				<!-- <button type="submit" id="profileUpload">등록/수정</button> -->
+			<a href="javascript:profileWindow();" id="photoArea"></a>	<!-- 사진 호출 Ajax 구현 -->
+			<form action="/user/updateProfile.do" method="POST" enctype="multipart/form-data" class="fileSet" style="display:none;">
+				<input type="file" id="profilePhoto" name="profilePhoto" onchange="javascript:profileUploading();"/>
+				<input type="hidden" name="category" value="profile"/>
+				<input type="hidden" name="userId" value="<%=sessionId%>"/>
+				<button type="submit" id="profileUpload">등록/수정</button>
 			</form>
 		</div>
 		<ul class="item">	<!-- 치수는 남성/여성 포멧을 확인해야한다. -->

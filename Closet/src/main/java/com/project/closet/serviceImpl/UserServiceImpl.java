@@ -49,8 +49,6 @@ public class UserServiceImpl implements UserService {
 			session.setAttribute("closetCd", sDto.getClosetCd());
 			session.setAttribute("closetName", sDto.getClosetName());
 			session.setAttribute("profilePath",sDto.getProfilePath());
-			session.setAttribute("profileImg",sDto.getProfileImg());
-			session.setAttribute("profileImgExt",sDto.getProfileImgExt());
 			session.setAttribute("length",sDto.getLength());
 			session.setAttribute("weight",sDto.getWeight());
 			session.setAttribute("head",sDto.getHead());
@@ -78,14 +76,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean updatePassword(UserDto dto) {
-		System.out.println("Service UpPasswd : " + dto.getUserPw());
 		boolean result = userDao.updatePassword(dto);
 		return result;
 	}
 
 	@Override
 	public boolean updateMobile(UserDto dto, HttpSession session) {
-		System.out.println("Service UpMoblie : " + dto.getMobile());
 		boolean result = userDao.updateMobile(dto);
 		if(result) {
 			UserDto sDto = viewUser(dto);
@@ -96,7 +92,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean updateSex(UserDto dto, HttpSession session) {
-		System.out.println("Service UpSex : " + dto.getSex());
 		boolean result = userDao.updateSex(dto);
 		if(result) {
 			UserDto sDto = viewUser(dto);
@@ -107,17 +102,15 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public boolean userDrop(UserDto dto) {
-		System.out.println("Service Drop User : " + dto.getUserPw());
 		boolean result = userDao.userDrop(dto);
 		
 		return result;
 	}
 
 	@Override
-	public boolean updateProfile(String uploadPath, String uploadImg, String uploadImgExt) {
-		System.out.println("Service UpProfile : " + uploadPath + uploadImg + uploadImgExt);
-		
-		return false;
+	public boolean updateProfile(String uploadPath, String userId) {
+		boolean result = userDao.updateProfile(uploadPath, userId);
+		return result;
 	}
 
 	@Override
@@ -153,5 +146,12 @@ public class UserServiceImpl implements UserService {
 			ajaxList.add(json);
 		}
 		return ajaxList;
+	}
+
+	@Override
+	public JSONObject showPhoto(UserDto dto) {
+		HashMap<String, Object> returnMap = userDao.showPhoto(dto);
+		JSONObject ajaxMap = new JSONObject(returnMap);
+		return ajaxMap;
 	}
 }

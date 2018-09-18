@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.closet.dao.UserDao">
+    <select id="userIdChk" parameterType="com.project.closet.dto.UserDto" resultType="com.project.closet.dto.UserDto">
+		SELECT COUNT(*) AS cnt
+		  FROM USERS
+		 WHERE USER_ID = #{userId}
+    </select>
 	<!-- 로그인 체크 -->
     <select id="signIn" resultType="String">
     	SELECT USER_ID AS userId
@@ -30,11 +35,10 @@
     	     , A.USER_PW AS userPw
     	     , A.BANK_CD AS bankCd
     	     , (SELECT BANK_NAME FROM BANK WHERE BANK_CD = A.BANK_CD) AS bankName
+    	     , A.DEPOSITOR AS depositor
     	     , A.CLOSET_CD AS closetCd
     	     , (SELECT CLOSET_NAME FROM CLOSET WHERE CLOSET_CD = A.CLOSET_CD) AS closetName
-             <!-- , A.PROFILE_PATH AS profilePath -->
-             <!-- , A.PROFILE_IMG AS profileImg -->
-             <!-- , A.PROFILE_IMG_EXT AS profileImgExt -->
+             , A.PROFILE_IMG_PATH AS profilePath
              , NVL(A.PHYSICAL_LENGTH,0) AS length
              , NVL(A.PHYSICAL_WEIGHT,0) AS weight
              , NVL(A.PHYSICAL_HEAD,0) AS head
@@ -48,8 +52,14 @@
              , NVL(A.PHYSICAL_HIP,0) AS hip
     	  FROM USERS A
 		 WHERE A.USER_ID = #{userId}
-		   AND A.STATUS = '1'<!-- TEST = 0 -->
+		   AND A.STATUS = '1'
 		   AND A.USER_PW = ENCRYPT_PKG.ENC_PWD(#{userPw})
+    </select>
+    <select id="showPhoto" resultType="com.project.closet.dto.UserDto">
+    	SELECT PROFILE_IMG_PATH AS profilePath
+    	  FROM USERS
+		 WHERE USER_ID = #{userId}
+		   AND STATUS = '1'
     </select>
     <!-- 프로시져 : 회원등록 실행 -->
     <select id="userInsProc" statementType="CALLABLE" parameterType="HashMap">
@@ -88,6 +98,12 @@
     	 WHERE USER_ID = #{userId}
     	   AND STATUS = '1'
     </update>
+    <update id="updateProfile">
+    	UPDATE USERS
+    	   SET PROFILE_IMG_PATH = #{profilePath}
+    	 WHERE USER_ID = #{userId}
+    	   AND STATUS = '1'
+    </update>
     <update id="userDrop">
     	UPDATE USERS
     	   SET STATUS = '0'	<!-- 활성 : 1, 비활성 : 0 -->
@@ -106,9 +122,5 @@
 		  FROM KINDS
 		 WHERE USE_YN = #{sex}
     </select>
-    <select id="userIdChk" parameterType="com.project.closet.dto.UserDto" resultType="com.project.closet.dto.UserDto">
-		SELECT COUNT(*) AS cnt
-		  FROM USERS
-		 WHERE USER_ID = #{userId}
-    </select>
+
 </mapper>

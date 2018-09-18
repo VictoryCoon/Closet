@@ -6,10 +6,37 @@
 <%@ page session="false" %>
 
 <%@ include file="/WEB-INF/jsp/common/head.jsp"%>
-<script>
-	$(document).ready(function() {
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://clippingmagic.com/api/v1/ClippingMagic.js" type="text/javascript"></script>
+<script type="text/javascript">
+var errorsArray = ClippingMagic.initialize({apiId: 123});
+if (errorsArray.length > 0) alert("죄송합니다, 귀하의 브라우저에 필요한 기능이 없습니다.: \n\n " + errorsArray.join("\n "));
+	
+var response = {
+		"image_id" : "/file/img/symbolb.png",
+		"image_secret" : "image_secret"
+}
+$(document).ready(function(){
 
+	$("#clipTest").click(function(){
+		alert(response.image_id);
+		alert(response.image_secret);
+		ClippingMagic.edit({
+		    "image" : {
+		        "id" : response.image_id,
+		        "secret" : response.image_secret
+		    }
+		}, function(response) {
+		    if(response.event == 'result-generated') {
+//		        # response.image.id
+//		        # response.image.image_secret
+		    }
+
+		});
 	});
+});
+
+	
 </script>
 <body>
 <div class="closetBoard">
@@ -18,6 +45,8 @@
 		ClosetImageView
 	</div>
 	<div class="liking">
+		<button id="clipTest">TEST</button>
+		<button id="1111">1111</button>
 		<span class="clover"></span>
 		<span class="cloverPoint" id="cCount">0</span>
 		<span class="flover"></span>

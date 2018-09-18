@@ -21,10 +21,38 @@ public class FileUtil {
 		OutputStream out = null;
 		PrintWriter printWriter = null;
 		
+		/* 절대경로 셋팅 */
+		String uploadPath = "C:/Users/victo/git/repository/Closet/src/main/webapp/";//request.getSession().getServletContext().getRealPath("/");
+		String attachPath = "file/upload/";
+		
+		/* 여기서 의류 항목별로 파일폴더를 나누어서 저장 할 수 있어야함. */
+		/* Form에서 애초에 나눠서 오면 되겠다...*/
+		String category = request.getParameter("category").toString();
+		
+		if(category.equals("outer")) {
+			attachPath += "outer/";
+		} else if(category.equals("top")) {
+			attachPath += "top/";
+		} else if(category.equals("bottom")) {
+			attachPath += "bottom/";
+		} else if(category.equals("underTop")) {
+			attachPath += "underTop/";
+		} else if(category.equals("underBottom")) {
+			attachPath += "underBottom/";
+		} else if(category.equals("accessory")) {
+			attachPath += "accessory/";
+		} else if(category.equals("shoes")) {
+			attachPath += "shoes/";
+		} else if(category.equals("profile")) {
+			attachPath += "profile/";
+		} else {
+			attachPath += "etc/";
+		}
+		
 		try {
 			fileName = uploadFile.getOriginalFilename();
 			byte[] bytes = uploadFile.getBytes();
-			path = getSaveLocation(request, obj);
+			path = uploadPath + attachPath;
 			
 			System.out.println("FileUtil - UPLOAD RECEIVE FILE_NAME : " + fileName);
 			System.out.println("FileUtil - UPLOAD RECEIVE FILE_PATH : " + path);
@@ -65,44 +93,6 @@ public class FileUtil {
 			}
 		}
 		
-		return path + fileName;
-	}
-
-	private String getSaveLocation(MultipartHttpServletRequest request, Object obj) {
-		/* 절대경로 셋팅 */
-		String uploadPath = "/Users/g/Project/Closet/Closet/src/main/webapp/";	//request.getSession().getServletContext().getRealPath("/");
-		String attachPath = "file/closet/";
-		
-		/* 여기서 의류 항목별로 파일폴더를 나누어서 저장 할 수 있어야함. */
-		/* Form에서 애초에 나눠서 오면 되겠다...*/
-		
-		System.out.println("Request Category : "+request.getParameter("category"));
-		System.out.println("Request Category : "+request.getParameter("category").toString());
-		
-		String category = request.getParameter("category").toString();
-		
-		if(category == "outer") {
-			attachPath += "outer/";
-		} else if(category == "top") {
-			attachPath += "top/";
-		} else if(category == "bottom") {
-			attachPath += "bottom/";
-		} else if(category == "underTop") {
-			attachPath += "underTop/";
-		} else if(category == "underBottom") {
-			attachPath += "underBottom/";
-		} else if(category == "accessory") {
-			attachPath += "accessory/";
-		} else if(category == "shoes") {
-			attachPath += "shoes/";
-		} else {
-			attachPath += "etc/";
-			System.out.println("왜 여기로오는데 ? "+ request.getParameter("category").toString());
-		}
-		
-		System.out.println("FileUtil - getSaveLocation uPath : " + uploadPath);
-		System.out.println("FileUtil - getSaveLocation  path : " + uploadPath + attachPath);
-		
-		return uploadPath + attachPath;
+		return attachPath + fileName;
 	}
 }

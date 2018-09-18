@@ -85,12 +85,11 @@
 			sessionCashLastDateKOR = sessionCashLastDate.substring(0,4) + "년 " + sessionCashLastDate.substring(4,6) + "월 " + sessionCashLastDate.substring(6,8) + "일";
 			sessionCashLastDateSlash = sessionCashLastDate.substring(0,4) + "/" + sessionCashLastDate.substring(4,6) + "/" + sessionCashLastDate.substring(6,8);
 		}
-		if(sessionInfo.getAttribute("profilePath") !=null && sessionInfo.getAttribute("profileImg") !=null && sessionInfo.getAttribute("profileImgExt") !=null) {
-			sessionProfilePhoto = (String) sessionInfo.getAttribute("profilePath") + (String) sessionInfo.getAttribute("profileImg") + (String) sessionInfo.getAttribute("profileImgExt");	
+		if(sessionInfo.getAttribute("profilePath") != null) {
+			sessionProfilePhoto = (String) sessionInfo.getAttribute("profilePath");	
 		} else {
-			sessionProfilePhoto = "/file/img/noProfile.png";
+			//sessionProfilePhoto = "/file/img/noProfile.png";
 		}
-		
 		sessionLength = (String) sessionInfo.getAttribute("length");
 		sessionWeight = (String) sessionInfo.getAttribute("weight");
 		sessionHead = (String) sessionInfo.getAttribute("head");

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -182,23 +183,14 @@ public class UserController {
 	}
 
 	
-	@RequestMapping(value = "upload.do", method = RequestMethod.POST)
-	public String addFileCtrl(@RequestParam("uploadFile") MultipartFile uploadFile, MultipartHttpServletRequest request, Object obj) {	// 오브젝트로 대체중. 시발.
-		
-		String uploadImg = "";
-		String uploadImgExt = "";
-		
-		System.out.println("FileUpload Controller UploadFile : " + uploadFile);
-		
+	@RequestMapping(value = "updateProfile.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String addFileCtrl(@RequestParam("profilePhoto") MultipartFile uploadFile, MultipartHttpServletRequest request, Object obj) {
 		FileUtil uFile = new FileUtil();
-		
 		String uploadPath = uFile.fileUpload(request, uploadFile, obj);
+		String userId = request.getParameter("userId").toString();
 		
-		/* 주석부분은 MyBatis에 등록하는 로직, 일단은 냅두자.*/
-		boolean num = userService.updateProfile(uploadPath, uploadImg, uploadImgExt);
-		
-		System.out.println("FileUpload Controller UploadFile num : " + num);
-		System.out.println("FileUpload Controller UploadFile path : " + uploadPath);
+		/* 업로드한 파일 DB에 경로 등록 */
+		boolean num = userService.updateProfile(uploadPath, userId);
 		
 		return "user/myInfo";
 	}
@@ -209,6 +201,12 @@ public class UserController {
 		List<Object> ajaxList = userService.userIdChk(dto);
 		System.out.println(this.toString() + " - " + ajaxList);
 		return ajaxList;
+	}
+	
+	@RequestMapping(value = "showPhoto.json", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public @ResponseBody JSONObject showPhoto(@ModelAttribute UserDto dto, HttpSession session) throws Exception{
+		JSONObject profile = userService.showPhoto(dto);
+		return profile;
 	}
 	
 	@RequestMapping(value = "test.do", method = RequestMethod.POST, produces = "application/json; charset=utf-8")

@@ -14,6 +14,7 @@ public class UserDto {
 	public String userKind;
 	public String bankCd;
 	public String bankName;
+	public String depositor;
 	public String account;
 	public String nationCd;
 	public String nationName;
@@ -46,8 +47,6 @@ public class UserDto {
 	public String spReturnCode;
 	public String spReturnMsg;
 	public String profilePath;
-	public String profileImg;
-	public String profileImgExt;
 	public String length;
 	public String weight;
 	public String head;
@@ -133,6 +132,12 @@ public class UserDto {
 	}
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
+	}
+	public String getDepositor() {
+		return depositor;
+	}
+	public void setDepositor(String depositor) {
+		this.depositor = depositor;
 	}
 	public String getAccount() {
 		return account;
@@ -325,18 +330,6 @@ public class UserDto {
 	}
 	public void setProfilePath(String profilePath) {
 		this.profilePath = profilePath;
-	}
-	public String getProfileImg() {
-		return profileImg;
-	}
-	public void setProfileImg(String profileImg) {
-		this.profileImg = profileImg;
-	}
-	public String getProfileImgExt() {
-		return profileImgExt;
-	}
-	public void setProfileImgExt(String profileImgExt) {
-		this.profileImgExt = profileImgExt;
 	}
 	public String getLength() {
 		return length;

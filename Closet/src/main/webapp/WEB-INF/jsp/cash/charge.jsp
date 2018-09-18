@@ -323,6 +323,7 @@ function pay() {
 		success:function(rsp) {
 			alert("RESPONSE_DATA : "+rsp);
 			console.log("RESPONSE_DATA : "+rsp);
+			
 			//document.cashCharge.action = "/cash/charge.do";
 			//document.cashCharge.submit();
 		},
