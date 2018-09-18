@@ -184,15 +184,23 @@ public class UserController {
 
 	
 	@RequestMapping(value = "updateProfile.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String addFileCtrl(@RequestParam("profilePhoto") MultipartFile uploadFile, MultipartHttpServletRequest request, Object obj) {
+	public ModelAndView addFileCtrl(@RequestParam("profilePhoto") MultipartFile uploadFile, MultipartHttpServletRequest request, Object obj) {
+		ModelAndView mav = new ModelAndView();
 		FileUtil uFile = new FileUtil();
 		String uploadPath = uFile.fileUpload(request, uploadFile, obj);
 		String userId = request.getParameter("userId").toString();
 		
 		/* 업로드한 파일 DB에 경로 등록 */
 		boolean num = userService.updateProfile(uploadPath, userId);
-		
-		return "user/myInfo";
+		if(num == true) {
+			mav.addObject("msg","프로필 사진이 변경되었습니다.");
+			mav.setViewName("main");
+			return mav;
+		} else {
+			mav.addObject("msg","프로필 사진 변경이 실패하였습니다. 계속해서 문제가 발생할 경우 XXX-XXXX-XXXX로 문의해주세요.");
+			mav.setViewName("user/myInfo");
+			return mav;
+		}
 	}
 	
 	@RequestMapping(value = "userIdChk.json", method = RequestMethod.POST, produces = "application/json; charset=utf-8")

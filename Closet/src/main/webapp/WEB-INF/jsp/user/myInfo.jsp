@@ -147,7 +147,6 @@ function profileWindow() {
 }
 function profileUploading() {
 	$("#profileUpload").trigger("click");
-	alert("프로필사진을 수정했습니다.");
 }
 
 function showMe(rId) {
